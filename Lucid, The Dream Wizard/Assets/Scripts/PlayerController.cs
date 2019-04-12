@@ -16,11 +16,19 @@ public class PlayerController : MonoBehaviour
         rigBody = GetComponent<Rigidbody2D>();
     }
 
-    void FixedUpdate()
+    private void Update()
     {
         checkIfGrounded();
+    }
+
+    void FixedUpdate()
+    {
         walk();
-        jump();
+
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            jump();
+        }
     }
 
     void walk()
@@ -33,22 +41,34 @@ public class PlayerController : MonoBehaviour
     {
         bool grounded = false;
         Collider2D[] coliders = Physics2D.OverlapCircleAll(feetPosition.transform.position, 0.1f);
-        foreach(Collider2D c in coliders)
+
+        for (int i = 0; i < coliders.Length; i++)
         {
-            if (c.gameObject.layer == 10)
+            if (coliders[i].gameObject.layer == 10)
+            {
                 grounded = true;
+                break;
+            }
         }
 
         isGrounded = grounded;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == 10)
+            isGrounded = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.layer == 10)
+            isGrounded = false;
+    }
     void jump()
     {
-        if(Input.GetButtonDown("Jump") && isGrounded)
-        {
-            Vector2 jump = new Vector2(rigBody.velocity.x, jumpPower);
-            rigBody.velocity = jump;
-        }
+        Vector2 jump = new Vector2(rigBody.velocity.x, jumpPower);
+        rigBody.velocity = jump;
     }
 
     public bool getGrounded()
