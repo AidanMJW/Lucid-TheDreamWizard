@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody2D rigBody;
     bool isGrounded;
+    bool doJump = false;
 
     void Start()
     {
@@ -19,16 +20,20 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         checkIfGrounded();
+        checkIfGroundedRaycast();
+
+        if (Input.GetButtonDown("Jump")  && isGrounded )
+        {
+            doJump = true;
+        }
     }
 
     void FixedUpdate()
     {
         walk();
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
+        if (doJump)
             jump();
-        }
     }
 
     void walk()
@@ -54,6 +59,21 @@ public class PlayerController : MonoBehaviour
         isGrounded = grounded;
     }
 
+    void checkIfGroundedRaycast()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up,0.3f);
+
+
+        if (hit.collider != null && hit.collider.gameObject.layer == 10)
+        {
+            Debug.Log(hit.collider.name);
+            isGrounded = true;
+        }
+         
+
+
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == 10)
@@ -69,6 +89,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 jump = new Vector2(rigBody.velocity.x, jumpPower);
         rigBody.velocity = jump;
+        doJump = false;
     }
 
     public bool getGrounded()
