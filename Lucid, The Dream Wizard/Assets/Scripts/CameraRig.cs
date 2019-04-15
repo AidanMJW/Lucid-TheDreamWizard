@@ -6,6 +6,7 @@ public class CameraRig : MonoBehaviour
 {
     public bool clampToPlayer = false;
     public float clampSpeed;
+    float _clampSpeed;
     public float lockSpeed;
 
     [Space(10)]
@@ -30,38 +31,37 @@ public class CameraRig : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        _clampSpeed = clampSpeed;
     }
 
     void Update()
     {
-        if (clampToPlayer)
+        Debug.Log(getPlayerSpeed());
+
+        if (!clampToPlayer)
         {
-            adjustScreen(clampSpeed);
+            if (getPlayerSpeed() >= lockSpeed)
+            {
+                if(getPlayerSpeed() >= lockSpeed * 2)
+                    clampSpeed = 0.025f;
+                else
+                    clampSpeed = 0.05f; 
+            }
+                
+            else
+                clampSpeed = _clampSpeed;
+
+                adjustScreen(clampSpeed);
         }
         else
         {
-            verticle.y = transform.position.y;
-            verticlePlayer.y = player.transform.position.y;
-
-            horizontal.x = transform.position.x;
-            horizontalPlayer.x = player.transform.position.x;
-
-            if (Vector3.Distance(verticle, verticlePlayer) > verticalDistance)
-                adjustScreen(verticalSpeed);
-            else if (Vector3.Distance(horizontal, horizontalPlayer) > horizontalDistance)
-                adjustScreen(horizontalSpeed);
-            else { }
-
-            if (getPlayerSpeed() >= lockSpeed)
-                transform.position = (new Vector3(transform.position.x, player.transform.position.y, transform.position.z));
+            transform.position = player.transform.position;
         }
     }
 
     void adjustScreen(float speed)
     {
         transform.position = Vector3.SmoothDamp(transform.position, player.transform.position, ref vel, speed);
-        if(getPlayerSpeed() >= lockSpeed)
-            transform.position = (new Vector3(transform.position.x, player.transform.position.y, transform.position.z));
     }
 
     float getPlayerSpeed()
