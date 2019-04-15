@@ -6,6 +6,7 @@ public class CameraRig : MonoBehaviour
 {
     public bool clampToPlayer = false;
     public float clampSpeed;
+    public float lockSpeed;
 
     [Space(10)]
     public float horizontalSpeed;
@@ -33,7 +34,7 @@ public class CameraRig : MonoBehaviour
 
     void Update()
     {
-        if(clampToPlayer)
+        if (clampToPlayer)
         {
             adjustScreen(clampSpeed);
         }
@@ -50,13 +51,23 @@ public class CameraRig : MonoBehaviour
             else if (Vector3.Distance(horizontal, horizontalPlayer) > horizontalDistance)
                 adjustScreen(horizontalSpeed);
             else { }
+
+            if (getPlayerSpeed() >= lockSpeed)
+                transform.position = (new Vector3(transform.position.x, player.transform.position.y, transform.position.z));
         }
     }
 
     void adjustScreen(float speed)
     {
         transform.position = Vector3.SmoothDamp(transform.position, player.transform.position, ref vel, speed);
+        if(getPlayerSpeed() >= lockSpeed)
+            transform.position = (new Vector3(transform.position.x, player.transform.position.y, transform.position.z));
     }
 
+    float getPlayerSpeed()
+    {
+        float playerSpeed = player.GetComponent<Rigidbody2D>().velocity.magnitude;
+        return playerSpeed;
+    }
 
 }
