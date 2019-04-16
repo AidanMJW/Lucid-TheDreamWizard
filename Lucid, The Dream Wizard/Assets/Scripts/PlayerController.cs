@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < coliders.Length; i++)
         {
-            if (coliders[i].gameObject.layer == 10)
+            if (coliders[i].gameObject.layer == 10 || coliders[i].gameObject.layer == 11)
             {
                 grounded = true;
                 break;
@@ -64,9 +64,9 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up,0.3f);
 
 
-        if (hit.collider != null && hit.collider.gameObject.layer == 10)
+        if (hit.collider != null)
         {
-            Debug.Log(hit.collider.name);
+            if(hit.collider.gameObject.layer == 10 || hit.collider.gameObject.layer == 11)
             isGrounded = true;
         }
          
@@ -76,13 +76,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 10)
+        if (collision.gameObject.layer == 10 || collision.gameObject.layer == 11)
             isGrounded = true;
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.layer == 10)
+        if (collision.gameObject.layer == 10 || collision.gameObject.layer == 11)
             isGrounded = false;
     }
     void jump()

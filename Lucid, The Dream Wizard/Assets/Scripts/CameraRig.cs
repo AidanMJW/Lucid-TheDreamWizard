@@ -36,8 +36,6 @@ public class CameraRig : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(getPlayerSpeed());
-
         if (!clampToPlayer)
         {
             if (getPlayerSpeed() >= lockSpeed)
