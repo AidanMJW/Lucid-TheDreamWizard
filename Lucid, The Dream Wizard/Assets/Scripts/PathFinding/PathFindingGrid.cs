@@ -132,11 +132,26 @@ public class PathFindingGrid : MonoBehaviour
                     Gizmos.color = Color.white;
                 }
 
+                if(n == worldPointToNode(new Vector2(player.transform.position.x,player.transform.position.y)))
+                {
+                    Gizmos.color = Color.blue;
+                }
+
                 Gizmos.DrawCube(n.position, new Vector3(nodeSize, nodeSize, 1));
             }
         }
 
     }
     
+    public Node worldPointToNode(Vector2 worldPoint)
+    {
+        float worldpointX = Vector2.Distance(transform.position, new Vector2(worldPoint.x + 0.05f, transform.position.y));
+        float worldpointY = Vector2.Distance(transform.position, new Vector2(transform.position.x, worldPoint.y + 0.05f));
+
+        int nodeX = (int)(worldpointX / (nodeSize + nodeDistance));
+        int nodeY = (int)(worldpointY / (nodeSize + nodeDistance));
+
+        return theGrid[nodeX, nodeY];
+    }
 
 }
