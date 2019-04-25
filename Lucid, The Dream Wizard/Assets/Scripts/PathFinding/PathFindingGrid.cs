@@ -132,7 +132,7 @@ public class PathFindingGrid : MonoBehaviour
                     Gizmos.color = Color.white;
                 }
 
-                if(n == worldPointToNode(new Vector2(player.transform.position.x,player.transform.position.y)))
+                if(n == worldPointToNode(new Vector2(player.transform.position.x + 0.05f,player.transform.position.y + 0.05f)))
                 {
                     Gizmos.color = Color.blue;
                 }
@@ -145,8 +145,8 @@ public class PathFindingGrid : MonoBehaviour
     
     public Node worldPointToNode(Vector2 worldPoint)
     {
-        float worldpointX = Vector2.Distance(transform.position, new Vector2(worldPoint.x + 0.05f, transform.position.y));
-        float worldpointY = Vector2.Distance(transform.position, new Vector2(transform.position.x, worldPoint.y + 0.05f));
+        float worldpointX = Vector2.Distance(transform.position, new Vector2(worldPoint.x, transform.position.y));
+        float worldpointY = Vector2.Distance(transform.position, new Vector2(transform.position.x, worldPoint.y));
 
         int nodeX = (int)(worldpointX / (nodeSize + nodeDistance));
         int nodeY = (int)(worldpointY / (nodeSize + nodeDistance));

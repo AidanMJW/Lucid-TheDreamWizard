@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed;
     public float jumpPower;
     public GameObject feetPosition;
+    public LayerMask canJumpLayers;
 
     Rigidbody2D rigBody;
     bool isGrounded;
@@ -49,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < coliders.Length; i++)
         {
-            if (coliders[i].gameObject.layer == 10 || coliders[i].gameObject.layer == 11)
+            if (((1 << coliders[i].gameObject.layer) & canJumpLayers) != 0)
             {
                 grounded = true;
                 break;
@@ -63,26 +64,23 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up,0.3f);
 
-
         if (hit.collider != null)
         {
-            if(hit.collider.gameObject.layer == 10 || hit.collider.gameObject.layer == 11)
+            if(hit.collider.gameObject.layer == canJumpLayers)
             isGrounded = true;
         }
          
-
-
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 10 || collision.gameObject.layer == 11)
+        if (((1 << collision.gameObject.layer) & canJumpLayers) != 0)
             isGrounded = true;
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.layer == 10 || collision.gameObject.layer == 11)
+        if (((1 << collision.gameObject.layer) & canJumpLayers) != 0)
             isGrounded = false;
     }
     void jump()

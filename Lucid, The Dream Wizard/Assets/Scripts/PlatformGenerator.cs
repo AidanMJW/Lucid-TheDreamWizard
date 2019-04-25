@@ -15,8 +15,7 @@ public class PlatformGenerator : MonoBehaviour
     public Vector3 spawnPosition;
 
     [Space(10)]
-    public GameObject playerCollider;
-    public GameObject objectCollider;
+    public GameObject platformColider;
 
     public void buildPlatform()
     {
@@ -26,14 +25,9 @@ public class PlatformGenerator : MonoBehaviour
         Vector2 newsize = new Vector2(tileSet.spriteSize * platformLength, tileSet.spriteSize);
         Vector2 offset = new Vector2((tileSet.spriteSize * (platformLength -1)) / 2, 0);
 
-        GameObject oCollider = Instantiate(objectCollider, platform.transform);
+        GameObject oCollider = Instantiate(platformColider, platform.transform);
         oCollider.GetComponent<BoxCollider2D>().size = newsize;
         oCollider.GetComponent<BoxCollider2D>().offset = offset;
-
-        GameObject pCollider = Instantiate( playerCollider , platform.transform);
-        pCollider.GetComponent<BoxCollider2D>().size = newsize;
-        pCollider.GetComponent<BoxCollider2D>().offset = offset;
-
 
         for (int i = 0; i < platformLength; i++)
         {
