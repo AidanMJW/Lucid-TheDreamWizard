@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
         checkIfGrounded();
         checkIfGroundedRaycast();
 
-        if (Input.GetButtonDown("Jump")  && isGrounded )
+        if (Input.GetButtonDown("Jump")  && isGrounded && pAttack.isFireing == false)
         {
             doJump = true;
         }
