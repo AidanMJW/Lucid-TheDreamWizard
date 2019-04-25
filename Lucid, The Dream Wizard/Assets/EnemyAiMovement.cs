@@ -70,7 +70,7 @@ public class EnemyAiMovement : MonoBehaviour
 
         if (isGrounded)
         {
-            if (landingSpotCheck(dir, 0.2f))
+            if (landingSpotCheck(dir, 0.1f))
             {
                 rigBody.velocity = direction;
             }

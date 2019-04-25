@@ -7,9 +7,11 @@ public class handleAnimation : MonoBehaviour
     SpriteRenderer sRender;
     Rigidbody2D rigBody;
     Animator anim;
+    PlayerAttack pAttack;
 
     bool isMoving;
     Vector3 pos;
+    bool fired = false;
 
     void Start()
     {
@@ -17,13 +19,15 @@ public class handleAnimation : MonoBehaviour
         rigBody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         pos = transform.position;
+        pAttack = GetComponent<PlayerAttack>();
     }
 
 
     void Update()
     {
         flipSprite();
-        idleWalk();
+        attacking();
+        idleWalk();   
     }
 
     void flipSprite()
@@ -47,5 +51,19 @@ public class handleAnimation : MonoBehaviour
 
         pos = transform.position;
         anim.SetBool("isWalking", isMoving);
+    }
+
+    void attacking()
+    {
+        if(pAttack.isFireing == true && fired == false)
+        {
+            anim.SetTrigger("isFireing");
+            fired = true;
+        }
+
+        if(fired && pAttack.isFireing == false)
+        {
+            fired =false;
+        }
     }
 }

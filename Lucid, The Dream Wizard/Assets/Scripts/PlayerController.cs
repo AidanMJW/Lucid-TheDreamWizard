@@ -10,12 +10,15 @@ public class PlayerController : MonoBehaviour
     public LayerMask canJumpLayers;
 
     Rigidbody2D rigBody;
+    PlayerAttack pAttack;
     bool isGrounded;
     bool doJump = false;
+
 
     void Start()
     {
         rigBody = GetComponent<Rigidbody2D>();
+        pAttack = GetComponent<PlayerAttack>();
     }
 
     private void Update()
@@ -39,8 +42,18 @@ public class PlayerController : MonoBehaviour
 
     void walk()
     {
-        Vector2 direction = new Vector2(Input.GetAxis("Horizontal") * walkSpeed, rigBody.velocity.y);
-        rigBody.velocity = direction;
+        if(pAttack.isFireing == false)
+        {
+            Vector2 direction = new Vector2(Input.GetAxis("Horizontal") * walkSpeed, rigBody.velocity.y);
+            rigBody.velocity = direction;
+        }
+        else
+        {
+            Vector2 newVelocity = rigBody.velocity;
+            newVelocity.x = 0;
+            rigBody.velocity = newVelocity;
+        }
+
     }
 
     void checkIfGrounded()

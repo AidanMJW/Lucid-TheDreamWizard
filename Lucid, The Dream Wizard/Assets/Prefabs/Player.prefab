@@ -92,6 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 892223534996832929}
   - component: {fileID: 892223534996832928}
+  - component: {fileID: 3281722538564578732}
   - component: {fileID: 892223534996832930}
   - component: {fileID: 892223534996832958}
   - component: {fileID: 892223534996832959}
@@ -138,6 +139,26 @@ MonoBehaviour:
   canJumpLayers:
     serializedVersion: 2
     m_Bits: 11264
+--- !u!114 &3281722538564578732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892223534996832956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f20010dbe18c7f24dae5b89596846170, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPower: 0
+  attackRange: 0
+  projectile: {fileID: 3451575339397579333, guid: 14e8438a391852d479df1555388d1247,
+    type: 3}
+  attackOffset: {x: 0.3, y: 0, z: 0}
+  attackTime: 0.7
+  fireTime: 0.3
+  isFireing: 0
 --- !u!50 &892223534996832930
 Rigidbody2D:
   serializedVersion: 4
