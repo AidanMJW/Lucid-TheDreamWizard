@@ -8,19 +8,22 @@ public class EnemyAiMovement : MonoBehaviour
     public float jumpForce;
     public float jumpHeight;
     public LayerMask platformLayer;
+    public LayerMask groundLayers;
     public Vector2 feetOffset;
     public Collider2D feetColider;
-   
 
+    float speedHolder;
     GameObject player;
     Vector2 playerLocation;
     Rigidbody2D rigBody;
     bool isGrounded;
+    bool jumping;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         rigBody = GetComponent<Rigidbody2D>();
+        speedHolder = speed;
     }
 
 
@@ -49,14 +52,40 @@ public class EnemyAiMovement : MonoBehaviour
     void moveHorizontal()
     {
         Vector2 direction = rigBody.velocity;
+        float dir = 1f;
         if (playerLocation.x > transform.position.x + 0.1)
+        {
             direction.x = 1 * speed;
+            dir = 1f;
+        }
+            
         else if (playerLocation.x < transform.position.x - 0.1)
+        {
             direction.x = -1 * speed;
+            dir = -1f;
+        }
+            
         else
             direction.x = 0;
 
-        rigBody.velocity = direction;
+        if (isGrounded)
+        {
+            if (landingSpotCheck(dir, 0.2f))
+            {
+                rigBody.velocity = direction;
+            }
+            else
+            {
+                direction.x = 0;
+                rigBody.velocity = direction;
+            }
+        }
+        else
+        {
+            rigBody.velocity = direction;
+        }
+
+        
     }
 
     void jump()
@@ -65,6 +94,29 @@ public class EnemyAiMovement : MonoBehaviour
         {
             rigBody.velocity = new Vector2(rigBody.velocity.x, jumpForce);
         }
+
+        if(jumpCheckHorizontal())
+        {
+            rigBody.velocity = new Vector2(rigBody.velocity.x, jumpForce );
+            jumping = true;
+        }
+
+        if(jumping == true)
+        {
+            if(isGrounded)
+            {
+                speed = speedHolder * 2;
+            }
+
+            
+            jumping = false;
+            
+        }
+        else if(jumping == false)
+        {
+                speed = speedHolder;
+        }
+
     }
 
     void drop()
@@ -72,7 +124,6 @@ public class EnemyAiMovement : MonoBehaviour
         if(dropCheck())
         {
             feetColider.enabled = false;
-            Debug.Log("droping");
         }
         else
         {
@@ -82,21 +133,68 @@ public class EnemyAiMovement : MonoBehaviour
 
     }
 
-    void jumpCheckHorizontal()
+    bool jumpCheckHorizontal()
     {
+        bool jump = false;
+        if (isGrounded)
+        {
+            
 
+            Vector2 direction = Vector2.zero;
+            if (transform.position.x > player.transform.position.x)
+                direction = Vector2.left;
+            else
+                direction = Vector2.right;
+
+            if(landingSpotCheck(direction.x,1))
+            {
+                Vector2 pos = transform.position;
+                pos += feetOffset;
+                pos += direction * 0.5f;
+
+                Collider2D ground = Physics2D.OverlapCircle(pos, 0.2f);
+
+                if (ground == null)
+                {
+                    jump = true;
+                }
+            }
+
+        }
+        return jump;
+    }
+
+    bool landingSpotCheck(float direction, float distance)
+    {
+        bool hasLandingSpot = false;
+
+        Vector2 pos = transform.position;
+        pos += feetOffset;
+
+        pos.x += (distance * direction);
+
+        Collider2D hit = Physics2D.OverlapCircle(pos, 0.1f);
+
+        if(hit != null)
+        {
+            if (((1 << hit.gameObject.layer) & groundLayers) != 0)
+            {
+                hasLandingSpot = true;
+            }
+        }
+
+        return hasLandingSpot;
     }
 
     bool jumpCheckVerticle()
     {
         bool shouldJump = false;
 
-        if(playerLocation.y > transform.position.y + 0.5f )
+        if(playerLocation.y > transform.position.y + 0.5f && isGrounded )
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up,1f, platformLayer);
             if(hit.collider!= null)
             {
-                Debug.Log(hit.collider.name);
                 shouldJump = true;
             }
         }
@@ -112,11 +210,26 @@ public class EnemyAiMovement : MonoBehaviour
             Collider2D col = Physics2D.OverlapCircle(pos + feetOffset, 0.1f);
             if ( col.tag == "Platform" )
             {
+                if(underPlatformCheck())
                 drop = true;
             }
         }
 
         return drop;
+    }
+
+    bool underPlatformCheck()
+    {
+        bool under = false;
+        Vector2 pos = transform.position;
+        Vector2 underPlatformPos = pos + feetOffset;
+        underPlatformPos.y += -0.4f;
+        RaycastHit2D hit = Physics2D.Raycast(underPlatformPos, Vector2.down);
+        if(hit.collider != null)
+        {
+            under = true;
+        }
+        return under;
     }
 
     void checkIfGrounded()
