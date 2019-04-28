@@ -7,15 +7,16 @@ public class EnemyAiMovement : MonoBehaviour
     public float speed = 1;
     public float jumpForce;
     public float jumpHeight;
+    public float followRange = 10f;
     public LayerMask platformLayer;
     public LayerMask groundLayers;
     public Vector2 feetOffset;
     public Collider2D feetColider;
 
     float speedHolder;
-    GameObject player;
+    public GameObject player;
     Vector2 playerLocation;
-    Rigidbody2D rigBody;
+    public Rigidbody2D rigBody;
     bool isGrounded;
     bool jumping;
 
@@ -36,7 +37,8 @@ public class EnemyAiMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        move();
+        if (Vector3.Distance(player.transform.position, transform.position) < followRange)
+            move();
     }
 
     void move()
@@ -208,7 +210,8 @@ public class EnemyAiMovement : MonoBehaviour
         {
             Vector2 pos = transform.position;
             Collider2D col = Physics2D.OverlapCircle(pos + feetOffset, 0.1f);
-            if ( col.tag == "Platform" )
+            
+            if ( col != null && col.tag == "Platform" )
             {
                 if(underPlatformCheck())
                 drop = true;

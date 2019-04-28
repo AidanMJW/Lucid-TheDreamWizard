@@ -72,6 +72,7 @@ public class PlayerAttack : MonoBehaviour
 
         
         p.GetComponent<Projectile>().direction = direction;
+        p.GetComponent<Projectile>().damage = attackPower;
     }
 
 
