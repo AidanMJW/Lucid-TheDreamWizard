@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (health <= 0)
+        if (health <= 0 || transform.position.y <= -50)
             die();
     }
 
