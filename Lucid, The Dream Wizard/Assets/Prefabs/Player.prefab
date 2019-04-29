@@ -91,6 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 892223534996832929}
+  - component: {fileID: 1392479477}
   - component: {fileID: 892223534996832928}
   - component: {fileID: 3281722538564578732}
   - component: {fileID: 892223534996832930}
@@ -121,6 +122,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1392479477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892223534996832956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a80899309a644e46b9899d946705a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &892223534996832928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20010dbe18c7f24dae5b89596846170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPower: 0
+  attackPower: 25
   attackRange: 0
   projectile: {fileID: 3451575339397579333, guid: 14e8438a391852d479df1555388d1247,
     type: 3}

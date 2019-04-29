@@ -226,3 +226,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 830c0709d9680f941809df5ed75edda0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
+  lootDropRange: {x: 0, y: 3}
+  loot:
+  - {fileID: 1019259206243466286, guid: 9acf5fbd265f6d449bac4b0e18a74e58, type: 3}
+  deathEffect: {fileID: 7506422319290420290, guid: aa7af5c30eee51044b4d607db6c8760c,
+    type: 3}
