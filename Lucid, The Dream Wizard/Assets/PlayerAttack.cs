@@ -27,7 +27,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1") && pController.getGrounded() && isFireing == false)
+        if (Input.GetButton("Fire1") && pController.getGrounded() && isFireing == false)
         {
             isFireing = true;
         }          
@@ -36,7 +36,7 @@ public class PlayerAttack : MonoBehaviour
         {
             attackTime -= Time.deltaTime;
 
-            if(attackTime <= fireTime && hasFired == false)
+            if(attackTime <= fireTime && attackTime >0 && hasFired == false)
             {
                 fireProjectile();
                 hasFired = true;
