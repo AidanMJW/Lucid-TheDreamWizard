@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
     public float speed = 0.3f;
     public Vector3 direction = Vector3.zero;
     public float damage;
+    public GameObject impactEffect;
     Vector2 vel = Vector3.zero;
     GameObject player;
     
@@ -36,7 +37,7 @@ public class Projectile : MonoBehaviour
     void destoryTest()
     {
         if (Vector3.Distance(player.transform.position, transform.position) > 10f)
-            Destroy(transform.gameObject);
+            DestroyThis();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -44,7 +45,15 @@ public class Projectile : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             collision.gameObject.GetComponent<Enemy>().takeDamage(damage);
-            Destroy(transform.gameObject);
+            DestroyThis();
         }
     }
+
+    void DestroyThis()
+    {
+        GameObject impact = Instantiate(impactEffect);
+        impact.transform.position = transform.position;
+        Destroy(transform.gameObject);
+    }
+
 }
