@@ -19,7 +19,7 @@ public class EnemyAiMovement : MonoBehaviour
     public Rigidbody2D rigBody;
     bool isGrounded;
     bool jumping;
-
+    public float dir = 1f;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -54,7 +54,7 @@ public class EnemyAiMovement : MonoBehaviour
     void moveHorizontal()
     {
         Vector2 direction = rigBody.velocity;
-        float dir = 1f;
+        
         if (playerLocation.x > transform.position.x + 0.1)
         {
             direction.x = 1 * speed;
