@@ -9,6 +9,7 @@ public class PlatformDown : MonoBehaviour
     public LayerMask platform;
     PlayerController pc;
 
+
     bool downPressed;
 
     void Start()
@@ -21,7 +22,7 @@ public class PlatformDown : MonoBehaviour
     {
         if(pc.getGrounded())
         {
-            if(Input.GetButtonDown("Vertical") || Input.GetAxis("Vertical") < -0.5f && downPressed == false)
+            if(Input.GetButtonDown("Down") || Input.GetAxis("Vertical") < -0.5f && downPressed == false)
             {
                 downPressed = true;
                 disableColliders();
