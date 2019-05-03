@@ -17,12 +17,14 @@ public class EnemyAiMovement : MonoBehaviour
     public GameObject player;
     Vector2 playerLocation;
     public Rigidbody2D rigBody;
+    public EnemyMeleeAttack enemyMelee;
     bool isGrounded;
     bool jumping;
     public float dir = 1f;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        enemyMelee = GetComponent<EnemyMeleeAttack>();
         rigBody = GetComponent<Rigidbody2D>();
         speedHolder = speed;
     }
