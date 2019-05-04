@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyMeleeAttack : MonoBehaviour
 {
+    public float attackPower = 25f;
     public float attackOffset;
     public float attackCooldown;
     public float hitTime;
@@ -59,7 +60,7 @@ public class EnemyMeleeAttack : MonoBehaviour
         {
             if (hit.gameObject.tag == "Player" && attacked == false)
             {
-                player.GetComponent<Player>().takeDamage();
+                player.GetComponent<Player>().takeDamage(attackPower);
                 attacked = true;
             }
         }

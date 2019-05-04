@@ -22,7 +22,7 @@ public class UIHeartManager : MonoBehaviour
         foreach (GameObject heart in hearts)
             heart.SetActive(false);
 
-        for(int i = 0; i < player.getHealth(); i++)
+        for(int i = 0; i < player.getLives(); i++)
         {
             if (hearts[i] != null)
                 hearts[i].SetActive(true);
