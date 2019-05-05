@@ -14,6 +14,7 @@ public class EnemyMeleeAttack : MonoBehaviour
     SpriteRenderer sRenderer;
     public bool attacking = false;
     bool attacked = false;
+    bool attackEvent = false;
     Vector2 direction;
      
 
@@ -31,13 +32,14 @@ public class EnemyMeleeAttack : MonoBehaviour
         if (attacking)
         {
             timer -= Time.deltaTime;
-            if (timer <= hitTime && timer >= hitTime - 0.1f)
+            if (attacked  == false && attackEvent == true)
                 attack(direction);
             if(timer <= 0)
             {
                 timer = attackCooldown;
                 attacking = false;
                 attacked = false;
+                attackEvent = false;
             }
         }
         else if(attacking == false)
@@ -50,6 +52,10 @@ public class EnemyMeleeAttack : MonoBehaviour
         }
     }
 
+    public void setAttackEvent()
+    {
+        attackEvent = true;
+    }
     void attack(Vector2 direction)
     {
         

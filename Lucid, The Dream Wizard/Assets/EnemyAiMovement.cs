@@ -228,7 +228,7 @@ public class EnemyAiMovement : MonoBehaviour
         bool under = false;
         Vector2 pos = transform.position;
         Vector2 underPlatformPos = pos + feetOffset;
-        underPlatformPos.y += -0.4f;
+        underPlatformPos.y += -0.6f;
         RaycastHit2D hit = Physics2D.Raycast(underPlatformPos, Vector2.down);
         if(hit.collider != null)
         {

@@ -45,8 +45,11 @@ public class HandleDeath : MonoBehaviour
         {
             if(Vector3.Distance(transform.position,respawnPoints[i].transform.position) < distance)
             {
-                distance = Vector3.Distance(transform.position, respawnPoints[i].transform.position);
-                respawnPos = respawnPoints[i].transform.position;
+                if(respawnPoints[i].GetComponent<RespawnPoint>().checkPoint)
+                {
+                    distance = Vector3.Distance(transform.position, respawnPoints[i].transform.position);
+                    respawnPos = respawnPoints[i].transform.position;
+                }
             }
         }
 

@@ -25,7 +25,6 @@ public class Player : MonoBehaviour
         if(health <= 0)
         {
             takeLive();
-            health = maxHealth;
             handleDeath.respawn();
         }
     }
@@ -38,6 +37,7 @@ public class Player : MonoBehaviour
     public void takeLive()
     {
         lives--;
+        health = maxHealth;
     }
     
     public void addDust(int amount = 1)
