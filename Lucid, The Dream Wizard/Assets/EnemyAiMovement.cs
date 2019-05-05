@@ -7,6 +7,7 @@ public class EnemyAiMovement : MonoBehaviour
     public float speed = 1;
     public float jumpForce;
     public float jumpHeight;
+   
     public LayerMask platformLayer;
     public LayerMask groundLayers;
     public Vector2 feetOffset;
@@ -24,6 +25,7 @@ public class EnemyAiMovement : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         rigBody = GetComponent<Rigidbody2D>();
         speedHolder = speed;
+       
     }
 
 
@@ -249,4 +251,5 @@ public class EnemyAiMovement : MonoBehaviour
 
         isGrounded = grounded;
     }
+   
 }

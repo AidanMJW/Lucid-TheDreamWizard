@@ -4,26 +4,53 @@ using UnityEngine;
 
 public class BatAIMovement : MonoBehaviour
 {
+    /*
+     * Bat story:
+     * a newly spawned bat will fly (chase) towards a co-ordinate that is a random distance behind and above the player.
+     * Once at this waypoint it will wait a random time ( 0 - 1 second) before making an attack dive on the player. 
+     * Once it contacts the player it will cause damage and retreat back to a random distance above and behind the player.
+     * 
+     * Bat state is used to select a behaviour for the bat
+     * 
+     */
+    // an enumaration for referring to state
+    public enum BatState
+    {
+        Chase,//fly (chase) towards a co-ordinate that is a random distance above the player.
+        Wait,//stationary  wait a random time ( 0 - 1 second) before making an attack dive on the player
+        Attack,//making an attack dive on the player.
+        Inactive//dead not visible waiting to be reactived.
+    };
 
+    public BatState m_BatState;
+    private Animator animator;
+    public float attackRange = 0.5f;
 
-    public float speed = 1;
-    
-    public LayerMask platformLayer;
-    public LayerMask groundLayers;
-   
+    private float timeDelay = 1.0f;
+    private float nextDirectionChange = 0.0f;
+    private bool swap;
+
+    public float speed = 1;    
+    //public LayerMask platformLayer;
+    //public LayerMask groundLayers;   
 
     float speedHolder;
     GameObject player;
+    Vector2 targetPosition;
     Vector2 playerLocation;
     Rigidbody2D rigBody;
     Vector3 rotationRight;
     Vector3 rotationLeft;
+    Vector3 rotationNone;
 
     Vector2 direction;
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
+        GetComponent<CircleCollider2D>().radius = attackRange;
         player = GameObject.FindGameObjectWithTag("Player");
         rigBody = GetComponent<Rigidbody2D>();
         speedHolder = speed;
@@ -31,28 +58,89 @@ public class BatAIMovement : MonoBehaviour
 
         rotationRight = new Vector3(25,transform.eulerAngles.y,transform.eulerAngles.z );
         rotationLeft = new Vector3(-25, transform.eulerAngles.y, transform.eulerAngles.z);
-
+        rotationNone = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
+        m_BatState = BatState.Chase;
+        targetPosition = player.transform.position;
+        playerLocation = targetPosition;
+        swap = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
-       
+        if (other.name == "Player")
+        {
+            m_BatState = BatState.Attack;
+            Debug.Log("attack state");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.name == "Player")
+        {
+            m_BatState = BatState.Chase;
+            Debug.Log("chase state");
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.name == "Player")
+        {
+            //do damage and fly away
+            m_BatState = BatState.Chase;
+            Debug.Log("successful attack now chase");
+        }
     }
 
     private void FixedUpdate()
     {
+       
+        switch (m_BatState)
+        {
+            case BatState.Chase:
+                //  animator.Play("ghost-idle", 0);//we can set an animation
+
+               
+
+                if (Time.time > nextDirectionChange)
+                {
+                   
+                    nextDirectionChange = Time.time + timeDelay;
+                    //set a target position                   
+                   if(swap)
+                    {
+                        targetPosition.x = player.transform.position.x + 0.1f + Random.value;
+                        swap = !swap;
+                    }
+                    else
+                    {
+                        targetPosition.x = player.transform.position.x - 0.1f - Random.value;
+                        swap = !swap;
+                    }
+                 
+                    targetPosition.y = player.transform.position.y + attackRange * 0.8f + Random.value;
+                }
+               
+                break;
+            case BatState.Attack:
+                //  animator.Play("ghost-idle", 0);
+                targetPosition.x = player.transform.position.x;
+                targetPosition.y = player.transform.position.y;                
+                break;
+
+        }//end switch
+
         playerLocation = player.transform.position;
         direction = rigBody.velocity;
         
-
-        if (playerLocation.x > transform.position.x + 0.1)
+        
+        if (targetPosition.x > transform.position.x + 0.1)
         {
-            direction.x = 1 * speed;
+            direction.x = 1 * speed;           
             transform.eulerAngles = rotationRight;
         }
-        else if (playerLocation.x < transform.position.x - 0.1)
+        else if (targetPosition.x < transform.position.x - 0.1 )
         {
             direction.x = -1 * speed;
             transform.eulerAngles = rotationLeft;
@@ -60,21 +148,21 @@ public class BatAIMovement : MonoBehaviour
         else
         {
             direction.x = 0;
+            transform.eulerAngles = rotationNone;
         }
 
-        if (playerLocation.y > transform.position.y + 0.1)
+        if (targetPosition.y > transform.position.y + 0.1)
         {
             direction.y = 1 * speed;
         }
-        else if (playerLocation.y < transform.position.y - 0.1)
+        else if (targetPosition.y < transform.position.y - 0.1)
         {
             direction.y = -1 * speed;
         }
         else
         {
             direction.y = 0;
-        }
-
+        }       
         rigBody.velocity = direction;
     }
 

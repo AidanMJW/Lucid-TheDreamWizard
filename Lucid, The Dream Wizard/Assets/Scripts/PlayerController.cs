@@ -96,6 +96,21 @@ public class PlayerController : MonoBehaviour
         if (((1 << collision.gameObject.layer) & canJumpLayers) != 0)
             isGrounded = false;
     }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log("collision with ghost");
+        if (other.gameObject.layer.Equals("ghost"))
+        {
+            Debug.Log("player collision with ghost");
+        }
+    }
+    private void OnCollisionExit2D(Collision2D other)
+    {
+
+    }
+
+
     void jump()
     {
         Vector2 jump = new Vector2(rigBody.velocity.x, jumpPower);
