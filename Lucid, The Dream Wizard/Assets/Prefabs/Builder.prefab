@@ -45,13 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileSet: {fileID: 11400000, guid: a40d2e08cbbc9f349941a17a3f93062e, type: 2}
-  platformLength: 15
+  platformLength: 30
   hasLeftCap: 1
   hasRightCap: 1
   spawnPosition: {x: 0, y: 4, z: 0}
-  playerCollider: {fileID: 3828277510258417357, guid: 18f8383d769054844801e9fe0223db90,
-    type: 3}
-  objectCollider: {fileID: 5611689914522487426, guid: ab4b8b1e0a78ee749a37584dccff68e2,
+  platformColider: {fileID: 5611689914522487426, guid: ab4b8b1e0a78ee749a37584dccff68e2,
     type: 3}
 --- !u!114 &8624405133158165893
 MonoBehaviour:

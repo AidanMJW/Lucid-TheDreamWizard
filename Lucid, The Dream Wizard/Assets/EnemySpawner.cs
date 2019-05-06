@@ -6,7 +6,9 @@ public class EnemySpawner : MonoBehaviour
 {
     public int maxSpawnAmount = 3;
     public float respawnTimer = 30;
+    public bool spawnPointIsPosition = false;
     public Vector3 spawnPos;
+
 
     bool respawn = false;
     float timer;
@@ -17,6 +19,7 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         timer = respawnTimer;
+        spawnPos = transform.position;
         spawnEnemys();
     }
 
@@ -61,7 +64,15 @@ public class EnemySpawner : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(spawnPos, 0.1f);
+        if(spawnPointIsPosition)
+        {
+            Gizmos.DrawSphere(transform.position, 0.1f);
+        }
+        else
+        {
+            Gizmos.DrawSphere(spawnPos, 0.1f);
+        }
+        
     }
 
 }

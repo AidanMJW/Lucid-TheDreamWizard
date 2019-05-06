@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 892223534996832959}
   - component: {fileID: 892223534996832931}
   - component: {fileID: 892223534996832933}
+  - component: {fileID: 642218864}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -134,6 +135,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a80899309a644e46b9899d946705a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 0
+  lives: 5
+  dust: 0
 --- !u!114 &892223534996832928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,13 +169,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20010dbe18c7f24dae5b89596846170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPower: 25
+  attackPower: 34
   attackRange: 0
   projectile: {fileID: 3451575339397579333, guid: 14e8438a391852d479df1555388d1247,
     type: 3}
   attackOffset: {x: 0.3, y: 0, z: 0}
-  attackTime: 0.7
-  fireTime: 0.3
+  attackTime: 0.8
+  fireTime: 0.4
   isFireing: 0
 --- !u!50 &892223534996832930
 Rigidbody2D:
@@ -184,7 +189,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.7
+  m_Mass: 20
   m_LinearDrag: 0.5
   m_AngularDrag: 0.05
   m_GravityScale: 2
@@ -288,6 +293,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41acde6d00bcb964fa55981c37e9b4d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &642218864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892223534996832956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94947e61c8844ac48ba0bface9dba253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathDepth: -50
 --- !u!1 &892223535248772954
 GameObject:
   m_ObjectHideFlags: 0
