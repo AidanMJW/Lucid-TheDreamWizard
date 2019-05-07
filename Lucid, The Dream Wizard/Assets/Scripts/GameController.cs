@@ -38,6 +38,7 @@ public class GameController : MonoBehaviour
     //a temp variable for creation of bat clones
     public GameObject m_Bat;
 
+    
     //a reference to our player 
     public GameObject m_Player;
 
@@ -84,15 +85,16 @@ public class GameController : MonoBehaviour
         //set up listener for when bats are killed
         //BatHealth.onUnitDestroy += this.UpdateScore;
 
+        //m_batCave = GameObject.FindGameObjectWithTag("BatCave");
         //creates our initial bats in at the BatCave and add to our arraylist
-        m_Bat = Instantiate(m_Bat, new Vector3(0, 0, 0), Quaternion.identity);
-
-       // m_Bat = (GameObject)Instantiate(m_Bat, new Vector3(0, 0, 0), Quaternion.identity);
-        _EnemyBatList.Add(m_Bat);
+        //m_Bat = Instantiate(m_Bat, new Vector3(0, 0, 0), Quaternion.identity);
+       // m_Bat = Instantiate(m_Bat, m_batCave.transform.position, Quaternion.identity);
+        
+       // _EnemyBatList.Add(m_Bat);
 
         //assigns values to our player and spawnpoint references
         m_Player = GameObject.FindGameObjectWithTag("Player");
-        m_batCave = GameObject.FindGameObjectWithTag("BatCave");
+       
 
         //sets each of the enemy  inactive ie invisible and not shooting/moving etc
         foreach (GameObject g in _EnemyBatList)
@@ -155,9 +157,9 @@ public class GameController : MonoBehaviour
                     m_NewGameButton.gameObject.SetActive(true);               
                     m_NewGameButton.GetComponentInChildren<Text>().text = "Try again?";
                 }
-                else if (!AnyActiveEnemy())
+               /* else if (!AnyActiveEnemy())
                 {
-                    //if no active enemies player has finished level - may need to change this to check is Boss dead as bats respawn
+                    //if no active enemies player has finished level - may need to change this to check is Boss dead if enemies respawn
                     //display score in GUI 
                     m_MessageText.text = "Level Cleared Score " + score;                   
                     m_GameState = GameState.GameOver;
@@ -168,7 +170,7 @@ public class GameController : MonoBehaviour
                     m_NewGameButton.gameObject.SetActive(true);                   
                     m_NewGameButton.GetComponentInChildren<Text>().text = "Next level?";
 
-                }
+                }*/
 
                 break;
                 case GameState.GameOver:
