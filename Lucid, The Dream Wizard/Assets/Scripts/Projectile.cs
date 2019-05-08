@@ -37,7 +37,7 @@ public class Projectile : MonoBehaviour
     void destoryTest()
     {
         if (Vector3.Distance(player.transform.position, transform.position) > 10f)
-            DestroyThis();
+            DestroyThis(false);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -49,11 +49,20 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    void DestroyThis()
+    void DestroyThis( bool impacted = true)
     {
-        GameObject impact = Instantiate(impactEffect);
-        impact.transform.position = transform.position;
+        if(impacted)
+        {
+            GameObject impact = Instantiate(impactEffect);
+            impact.transform.position = transform.position;
+        }
+
         Destroy(transform.gameObject);
+    }
+
+    private void OnBecameInvisible()
+    {
+        DestroyThis(false);
     }
 
 }
