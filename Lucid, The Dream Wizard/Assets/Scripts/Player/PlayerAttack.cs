@@ -29,7 +29,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (MenuManager.getPauseState() == false)
         {
-            if (Input.GetButton("Fire1") && pController.getGrounded() && isFireing == false)
+            if (Input.GetButton("Fire1")  && isFireing == false)
             {
                 isFireing = true;
             }
