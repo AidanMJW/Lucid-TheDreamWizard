@@ -29,6 +29,9 @@ public class BatAIMovement : MonoBehaviour
     private float timeDelay = 1.0f;
     private float nextDirectionChange = 0.0f;
     private bool swap;
+    private AudioSource batAudio;
+    public AudioClip batDamageClip;
+    public AudioClip batFlyingClip;
 
     public float speed = 1;    
     //public LayerMask platformLayer;
@@ -59,18 +62,22 @@ public class BatAIMovement : MonoBehaviour
         rotationRight = new Vector3(25,transform.eulerAngles.y,transform.eulerAngles.z );
         rotationLeft = new Vector3(-25, transform.eulerAngles.y, transform.eulerAngles.z);
         rotationNone = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
-        m_BatState = BatState.Chase;
+        m_BatState = BatState.Wait;
         targetPosition = player.transform.position;
         playerLocation = targetPosition;
         swap = true;
+        batAudio = GetComponent<AudioSource>();
+       
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.name == "Player")
         {
+            batAudio.clip = batDamageClip;
+            batAudio.Play();
             m_BatState = BatState.Attack;
-            Debug.Log("attack state");
+            //Debug.Log("attack state");
         }
     }
 
@@ -79,7 +86,7 @@ public class BatAIMovement : MonoBehaviour
         if (other.name == "Player")
         {
             m_BatState = BatState.Chase;
-            Debug.Log("chase state");
+            //Debug.Log("chase state");
         }
     }
 
@@ -88,6 +95,7 @@ public class BatAIMovement : MonoBehaviour
         if (other.gameObject.name == "Player")
         {
             //do damage and fly away
+            
             m_BatState = BatState.Chase;
             Debug.Log("successful attack now chase");
         }
@@ -100,9 +108,6 @@ public class BatAIMovement : MonoBehaviour
         {
             case BatState.Chase:
                 //  animator.Play("ghost-idle", 0);//we can set an animation
-
-               
-
                 if (Time.time > nextDirectionChange)
                 {
                    
@@ -123,10 +128,27 @@ public class BatAIMovement : MonoBehaviour
                 }
                
                 break;
-            case BatState.Attack:
-                //  animator.Play("ghost-idle", 0);
+            case BatState.Attack:               
                 targetPosition.x = player.transform.position.x;
                 targetPosition.y = player.transform.position.y;                
+                break;
+            case BatState.Wait:
+                if (Time.time > nextDirectionChange)
+                {
+                    batAudio.clip = batFlyingClip;
+                     batAudio.Play();
+                   // StartCoroutine(AudioController.FadeIn(batAudio, 0.1f));
+                   // StartCoroutine(AudioController.FadeOut(batAudio, 0.75f));
+
+                    nextDirectionChange = Time.time + 3f;
+                    //set a target position                   
+                    
+                     targetPosition.x = transform.position.x + Random.value;
+                     targetPosition.y = transform.position.y - Random.value;                      
+                  
+                    m_BatState = BatState.Chase;
+
+                }
                 break;
 
         }//end switch

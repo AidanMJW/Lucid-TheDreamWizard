@@ -209,17 +209,17 @@ public class GameController : MonoBehaviour
         return numEnemyLeft > 0;
     }
 
-    //a check to see if player tank is active and therefore still alive
+    //a check to see if player is active and therefore still alive
     private bool IsPlayerDead()
     {
         if (m_Player.activeSelf == false)
         {
-            Debug.Log("IsPlayerDead- false");
+            Debug.Log("IsPlayerDead- true");
             return true;
         }
         else
         {
-            Debug.Log("IsPlayerDead- true");
+           // Debug.Log("IsPlayerDead- false");
             return false;
         }
     }
@@ -240,7 +240,7 @@ public class GameController : MonoBehaviour
         m_TimerText.gameObject.SetActive(true);
         m_MessageText.text = "";
 
-        //set all tanks active to recommence gameplay
+        //set all enemy active to recommence gameplay
         m_Player.SetActive(true);
         foreach (GameObject g in _EnemyBatList)
         {
