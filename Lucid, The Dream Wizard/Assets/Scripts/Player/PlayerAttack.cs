@@ -14,6 +14,7 @@ public class PlayerAttack : MonoBehaviour
 
     public bool isFireing = false;
     bool hasFired = false;
+    bool fire = false;
     Vector3 direction;
     SpriteRenderer sRenderer;
     PlayerController pController;
@@ -37,20 +38,25 @@ public class PlayerAttack : MonoBehaviour
          
         if(isFireing == true)
         {
-            attackTime -= Time.deltaTime;
-
-            if(attackTime <= fireTime && attackTime >0 && hasFired == false)
+            if(fire && hasFired == false)
             {
                 fireProjectile();
                 hasFired = true;
             }
-            if(attackTime <= 0)
-            {
-                isFireing = false;
-                hasFired = false;
-                attackTime = baseAttackTime;
-            }
         }
+    }
+
+    public void resetFire()
+    {
+        isFireing = false;
+        hasFired = false;
+        fire = false;
+    }
+
+
+    public void setFire()
+    {
+        fire = true;
     }
 
     void fireProjectile()
