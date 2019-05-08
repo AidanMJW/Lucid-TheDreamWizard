@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0d1009c8dfb2f46b8a2d400a9d787f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1.3
+  speed: 0.6
   jumpForce: 7
   jumpHeight: 0
   followRange: 5
@@ -216,6 +216,7 @@ MonoBehaviour:
   feetColider: {fileID: 4739584297413598824}
   player: {fileID: 0}
   rigBody: {fileID: 0}
+  enemyMelee: {fileID: 0}
   dir: 1
 --- !u!114 &4739584297878255135
 MonoBehaviour:
@@ -231,8 +232,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   lootDropRange: {x: 0, y: 3}
-  loot:
-  - {fileID: 1019259206243466286, guid: 9acf5fbd265f6d449bac4b0e18a74e58, type: 3}
+  Drops:
+  - {fileID: 11400000, guid: ec579b97c12f06542876387a7dd1602d, type: 2}
+  - {fileID: 11400000, guid: 3dd3aee2b150ee442a6ea5ba8bd4b02c, type: 2}
   deathEffect: {fileID: 7506422319290420290, guid: aa7af5c30eee51044b4d607db6c8760c,
     type: 3}
 --- !u!114 &2333335508019775133
@@ -260,6 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292d5dbb1e33e5847bbf80c81d0ab23d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackPower: 15
   attackOffset: 0.4
   attackCooldown: 1
   hitTime: 0.3
