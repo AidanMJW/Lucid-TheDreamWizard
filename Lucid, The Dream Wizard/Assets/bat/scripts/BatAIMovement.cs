@@ -25,6 +25,7 @@ public class BatAIMovement : MonoBehaviour
     public BatState m_BatState;
     private Animator animator;
     public float attackRange = 0.5f;
+    public float attackPower = 2f;
 
     private float timeDelay = 1.0f;
     private float nextDirectionChange = 0.0f;
@@ -74,6 +75,7 @@ public class BatAIMovement : MonoBehaviour
     {
         if (other.name == "Player")
         {
+            other.GetComponent<Player>().takeDamage(attackPower * DifficultyManager.getAttackMultiplier());
             batAudio.clip = batDamageClip;
             batAudio.Play();
             m_BatState = BatState.Attack;
