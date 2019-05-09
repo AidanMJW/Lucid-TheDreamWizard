@@ -7,25 +7,26 @@ public class EnemyAiMovement : MonoBehaviour
     public float speed = 1;
     public float jumpForce;
     public float jumpHeight;
-   
+    public float followRange = 10f;
     public LayerMask platformLayer;
     public LayerMask groundLayers;
     public Vector2 feetOffset;
     public Collider2D feetColider;
 
     float speedHolder;
-    GameObject player;
+    public GameObject player;
     Vector2 playerLocation;
-    Rigidbody2D rigBody;
+    public Rigidbody2D rigBody;
+    public EnemyMeleeAttack enemyMelee;
     bool isGrounded;
     bool jumping;
-
+    public float dir = 1f;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        enemyMelee = GetComponent<EnemyMeleeAttack>();
         rigBody = GetComponent<Rigidbody2D>();
         speedHolder = speed;
-       
     }
 
 
@@ -38,7 +39,8 @@ public class EnemyAiMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        move();
+        if (Vector3.Distance(player.transform.position, transform.position) < followRange)
+            move();
     }
 
     void move()
@@ -54,16 +56,16 @@ public class EnemyAiMovement : MonoBehaviour
     void moveHorizontal()
     {
         Vector2 direction = rigBody.velocity;
-        float dir = 1f;
+        
         if (playerLocation.x > transform.position.x + 0.1)
         {
-            direction.x = 1 * speed;
+            direction.x = 1 * (speed * DifficultyManager.getSpeedMultiplier());
             dir = 1f;
         }
             
         else if (playerLocation.x < transform.position.x - 0.1)
         {
-            direction.x = -1 * speed;
+            direction.x = -1 * (speed * DifficultyManager.getSpeedMultiplier());
             dir = -1f;
         }
             
@@ -210,7 +212,8 @@ public class EnemyAiMovement : MonoBehaviour
         {
             Vector2 pos = transform.position;
             Collider2D col = Physics2D.OverlapCircle(pos + feetOffset, 0.1f);
-            if ( col.tag == "Platform" )
+            
+            if ( col != null && col.tag == "Platform" )
             {
                 if(underPlatformCheck())
                 drop = true;
@@ -225,7 +228,7 @@ public class EnemyAiMovement : MonoBehaviour
         bool under = false;
         Vector2 pos = transform.position;
         Vector2 underPlatformPos = pos + feetOffset;
-        underPlatformPos.y += -0.4f;
+        underPlatformPos.y += -0.6f;
         RaycastHit2D hit = Physics2D.Raycast(underPlatformPos, Vector2.down);
         if(hit.collider != null)
         {
@@ -251,5 +254,4 @@ public class EnemyAiMovement : MonoBehaviour
 
         isGrounded = grounded;
     }
-   
 }

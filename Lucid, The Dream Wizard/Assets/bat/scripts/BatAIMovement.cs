@@ -85,19 +85,16 @@ public class BatAIMovement : MonoBehaviour
     {
         if (other.name == "Player")
         {
-            m_BatState = BatState.Chase;
-            //Debug.Log("chase state");
+            m_BatState = BatState.Chase;           
         }
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.name == "Player")
-        {
-            //do damage and fly away
+        {        
             
-            m_BatState = BatState.Chase;
-            Debug.Log("successful attack now chase");
+            m_BatState = BatState.Chase;           
         }
     }
 
@@ -136,9 +133,8 @@ public class BatAIMovement : MonoBehaviour
                 if (Time.time > nextDirectionChange)
                 {
                     batAudio.clip = batFlyingClip;
-                     batAudio.Play();
-                   // StartCoroutine(AudioController.FadeIn(batAudio, 0.1f));
-                   // StartCoroutine(AudioController.FadeOut(batAudio, 0.75f));
+                    batAudio.Play();
+                   
 
                     nextDirectionChange = Time.time + 3f;
                     //set a target position                   

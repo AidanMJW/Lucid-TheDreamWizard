@@ -14,6 +14,7 @@ public class PlayerAttack : MonoBehaviour
 
     public bool isFireing = false;
     bool hasFired = false;
+    bool fire = false;
     Vector3 direction;
     SpriteRenderer sRenderer;
     PlayerController pController;
@@ -27,27 +28,35 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1") && pController.getGrounded() && isFireing == false)
+        if (MenuManager.getPauseState() == false)
         {
-            isFireing = true;
-        }          
-
+            if (Input.GetButton("Fire1")  && isFireing == false)
+            {
+                isFireing = true;
+            }
+        }
+         
         if(isFireing == true)
         {
-            attackTime -= Time.deltaTime;
-
-            if(attackTime <= fireTime && hasFired == false)
+            if(fire && hasFired == false)
             {
                 fireProjectile();
                 hasFired = true;
             }
-            if(attackTime <= 0)
-            {
-                isFireing = false;
-                hasFired = false;
-                attackTime = baseAttackTime;
-            }
         }
+    }
+
+    public void resetFire()
+    {
+        isFireing = false;
+        hasFired = false;
+        fire = false;
+    }
+
+
+    public void setFire()
+    {
+        fire = true;
     }
 
     void fireProjectile()
@@ -72,6 +81,7 @@ public class PlayerAttack : MonoBehaviour
 
         
         p.GetComponent<Projectile>().direction = direction;
+        p.GetComponent<Projectile>().damage = attackPower;
     }
 
 

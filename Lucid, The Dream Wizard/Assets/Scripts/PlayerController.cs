@@ -13,12 +13,14 @@ public class PlayerController : MonoBehaviour
     PlayerAttack pAttack;
     bool isGrounded;
     bool doJump = false;
-
+    private AudioSource playerAudio;
+    public AudioClip playerJumpClip;
 
     void Start()
     {
         rigBody = GetComponent<Rigidbody2D>();
         pAttack = GetComponent<PlayerAttack>();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -26,15 +28,22 @@ public class PlayerController : MonoBehaviour
         checkIfGrounded();
         checkIfGroundedRaycast();
 
-        if (Input.GetButtonDown("Jump")  && isGrounded && pAttack.isFireing == false)
+        if(MenuManager.getPauseState() == false)
         {
-            doJump = true;
+            if (Input.GetButtonDown("Jump") && isGrounded && pAttack.isFireing == false)
+            {
+                doJump = true;
+            }
         }
+
     }
 
     void FixedUpdate()
     {
-        walk();
+        if (MenuManager.getPauseState() == false)
+        {
+            walk();
+        }
 
         if (doJump)
             jump();
@@ -96,25 +105,12 @@ public class PlayerController : MonoBehaviour
         if (((1 << collision.gameObject.layer) & canJumpLayers) != 0)
             isGrounded = false;
     }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        Debug.Log("collision with ghost");
-        if (other.gameObject.layer.Equals("ghost"))
-        {
-            Debug.Log("player collision with ghost");
-        }
-    }
-    private void OnCollisionExit2D(Collision2D other)
-    {
-
-    }
-
-
     void jump()
     {
         Vector2 jump = new Vector2(rigBody.velocity.x, jumpPower);
         rigBody.velocity = jump;
+        playerAudio.clip = playerJumpClip;
+        playerAudio.Play();
         doJump = false;
     }
 

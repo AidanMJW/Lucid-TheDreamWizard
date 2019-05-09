@@ -25,18 +25,21 @@ public class handleAnimation : MonoBehaviour
 
     void Update()
     {
-        flipSprite();
+        if(MenuManager.getPauseState() == false && pAttack.isFireing == false)
+        {
+            flipSprite();
+        }
         attacking();
         idleWalk();   
     }
 
     void flipSprite()
     {
-        if(rigBody.velocity.x > 0 && Input.GetAxis("Horizontal") != 0)
+        if( Input.GetAxis("Horizontal") > 0)
         {
             sRender.flipX = false;
         }
-        else if (rigBody.velocity.x < 0 && Input.GetAxis("Horizontal") != 0)
+        else if (Input.GetAxis("Horizontal") < 0)
         {
             sRender.flipX = true;
         }
