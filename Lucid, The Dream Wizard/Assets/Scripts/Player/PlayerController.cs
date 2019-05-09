@@ -70,9 +70,14 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < coliders.Length; i++)
         {
+            //activate weak platform
+            if (coliders[i].gameObject.tag == "WeakPlatform")
+                coliders[i].gameObject.GetComponent<PlatformShake>().setBreak();
+
             if (((1 << coliders[i].gameObject.layer) & canJumpLayers) != 0)
             {
                 grounded = true;
+                
                 break;
             }
         }

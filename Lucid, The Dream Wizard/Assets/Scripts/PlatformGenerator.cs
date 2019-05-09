@@ -17,6 +17,10 @@ public class PlatformGenerator : MonoBehaviour
     [Space(10)]
     public GameObject platformColider;
 
+    [Space(10)]
+    public bool weakPlatform = false;
+    public float breakTime = 3f;
+
     public void buildPlatform()
     {
         GameObject platform = new GameObject("platform");
@@ -28,6 +32,13 @@ public class PlatformGenerator : MonoBehaviour
         GameObject oCollider = Instantiate(platformColider, platform.transform);
         oCollider.GetComponent<BoxCollider2D>().size = newsize;
         oCollider.GetComponent<BoxCollider2D>().offset = offset;
+
+        if(weakPlatform)
+        {
+            oCollider.AddComponent<PlatformShake>();
+            oCollider.GetComponent<PlatformShake>().breakTime = breakTime;
+            oCollider.tag = "WeakPlatform";
+        }
 
         for (int i = 0; i < platformLength; i++)
         {
