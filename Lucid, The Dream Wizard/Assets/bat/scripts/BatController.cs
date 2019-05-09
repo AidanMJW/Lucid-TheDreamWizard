@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BatAIMovement : MonoBehaviour
+public class BatController : MonoBehaviour
 {
     /*
      * Bat story:
@@ -74,10 +74,7 @@ public class BatAIMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.name == "Player")
-        {
-            other.GetComponent<Player>().takeDamage(attackPower * DifficultyManager.getAttackMultiplier());
-            batAudio.clip = batDamageClip;
-            batAudio.Play();
+        {           
             m_BatState = BatState.Attack;
             //Debug.Log("attack state");
         }
@@ -94,10 +91,12 @@ public class BatAIMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.name == "Player")
-        {        
-            
+        {
+            other.gameObject.GetComponent<Player>().takeDamage(attackPower * DifficultyManager.getAttackMultiplier());
+            batAudio.clip = batDamageClip;
+            batAudio.Play();
             m_BatState = BatState.Chase;           
-        }
+        } 
     }
 
     private void FixedUpdate()

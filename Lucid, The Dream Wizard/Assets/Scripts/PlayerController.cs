@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
         if(MenuManager.getPauseState() == false)
         {
-            if (Input.GetButtonDown("Jump") && isGrounded && pAttack.isFireing == false)
+            if (Input.GetButtonDown("Jump") && isGrounded/* && pAttack.isFireing == false*/)
             {
                 doJump = true;
             }

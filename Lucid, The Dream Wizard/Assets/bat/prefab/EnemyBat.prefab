@@ -16,9 +16,10 @@ GameObject:
   - component: {fileID: 6541158125601461710}
   - component: {fileID: 3233915983383135534}
   - component: {fileID: 7923217590308870425}
+  - component: {fileID: 8953279499330977839}
   m_Layer: 0
   m_Name: EnemyBat
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,6 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BatState: 0
   attackRange: 0.5
+  attackPower: 2
   batDamageClip: {fileID: 8300000, guid: f85d2e24742f3cb4e8f335a605f5b71c, type: 3}
   batFlyingClip: {fileID: 8300000, guid: 25c7bdc71d82cd144a239a2c66972303, type: 3}
   speed: 1
@@ -280,3 +282,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8953279499330977839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6541158125601461716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830c0709d9680f941809df5ed75edda0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  lootDropRange: {x: 0, y: 0}
+  Drops: []
+  deathEffect: {fileID: 7506422319290420290, guid: aa7af5c30eee51044b4d607db6c8760c,
+    type: 3}
