@@ -13,12 +13,14 @@ public class PlayerController : MonoBehaviour
     PlayerAttack pAttack;
     bool isGrounded;
     bool doJump = false;
-
+    private AudioSource playerAudio;
+    public AudioClip playerJumpClip;
 
     void Start()
     {
         rigBody = GetComponent<Rigidbody2D>();
         pAttack = GetComponent<PlayerAttack>();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -28,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
         if(MenuManager.getPauseState() == false)
         {
-            if (Input.GetButtonDown("Jump") && isGrounded && pAttack.isFireing == false)
+            if (Input.GetButtonDown("Jump") && isGrounded/* && pAttack.isFireing == false*/)
             {
                 doJump = true;
             }
@@ -107,6 +109,8 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 jump = new Vector2(rigBody.velocity.x, jumpPower);
         rigBody.velocity = jump;
+        playerAudio.clip = playerJumpClip;
+        playerAudio.Play();
         doJump = false;
     }
 
