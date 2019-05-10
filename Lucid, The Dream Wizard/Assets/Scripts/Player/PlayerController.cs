@@ -11,8 +11,7 @@ public class PlayerController : MonoBehaviour
     public GameObject platformDown;
     public LayerMask canJumpLayers;
 
-    public bool flying;
-
+    DreamStateManager dreamState;
     Rigidbody2D rigBody;
     PlayerAttack pAttack;
     bool isGrounded;
@@ -23,6 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         rigBody = GetComponent<Rigidbody2D>();
         pAttack = GetComponent<PlayerAttack>();
+        dreamState = GetComponent<DreamStateManager>();
     }
 
     private void Update()
@@ -42,11 +42,12 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(!flying)
+        if(!dreamState.inDreamState)
         {
             rigBody.gravityScale = 2;
             feetPosition.SetActive(false);
             platformDown.SetActive(true);
+
             if (MenuManager.getPauseState() == false)
             {
                 walk();
@@ -67,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
     void walk()
     {
-        if(pAttack.isFireing == false)
+        if(pAttack.isFireing == false || !isGrounded)
         {
             Vector2 direction = new Vector2(Input.GetAxis("Horizontal") * walkSpeed, rigBody.velocity.y);
             rigBody.velocity = direction;
@@ -96,7 +97,7 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < coliders.Length; i++)
         {
             //activate weak platform
-            if (coliders[i].gameObject.tag == "WeakPlatform" && !flying)
+            if (coliders[i].gameObject.tag == "WeakPlatform" && !dreamState.inDreamState)
                 coliders[i].gameObject.GetComponent<PlatformShake>().setBreak();
 
             if (((1 << coliders[i].gameObject.layer) & canJumpLayers) != 0)
