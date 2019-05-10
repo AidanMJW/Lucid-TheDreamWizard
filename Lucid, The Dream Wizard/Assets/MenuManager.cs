@@ -40,7 +40,7 @@ public class MenuManager : MonoBehaviour
         if (menuOpen == false)
         {
             mainMenu.SetActive(true);
-            ES.SetSelectedGameObject(mainMenuStartButton.gameObject);
+            //ES.SetSelectedGameObject(mainMenuStartButton.gameObject);
             gamePaused = true;
             Time.timeScale = 0f;
             menuOpen = true;
