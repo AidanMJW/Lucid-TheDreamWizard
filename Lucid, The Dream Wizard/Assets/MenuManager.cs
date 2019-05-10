@@ -22,6 +22,7 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
+        
         difficultyText.text = difficulties[0].difficultyName;
         toggleMenu();
     }
