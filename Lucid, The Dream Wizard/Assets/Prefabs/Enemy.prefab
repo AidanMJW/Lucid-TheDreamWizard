@@ -268,8 +268,6 @@ MonoBehaviour:
   attackCooldown: 1
   hitTime: 0.3
   attacking: 0
-  enemyDamageClip: {fileID: 8300000, guid: d3ed3749023ab8f488dbc36f965ef485, type: 3}
-  enemySpawnClip: {fileID: 8300000, guid: 5b7711f8d38d52b47bdee72084be46f5, type: 3}
 --- !u!82 &5823884946152363800
 AudioSource:
   m_ObjectHideFlags: 0
@@ -282,7 +280,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d3ed3749023ab8f488dbc36f965ef485, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.215
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
