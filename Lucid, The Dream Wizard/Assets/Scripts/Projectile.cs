@@ -49,7 +49,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    void DestroyThis( bool impacted = true)
+    public void DestroyThis( bool impacted = true)
     {
         if(impacted)
         {
