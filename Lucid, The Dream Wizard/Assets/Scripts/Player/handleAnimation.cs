@@ -8,6 +8,7 @@ public class handleAnimation : MonoBehaviour
     Rigidbody2D rigBody;
     Animator anim;
     PlayerAttack pAttack;
+    DreamStateManager dState;
 
     bool isMoving;
     Vector3 pos;
@@ -20,6 +21,7 @@ public class handleAnimation : MonoBehaviour
         anim = GetComponent<Animator>();
         pos = transform.position;
         pAttack = GetComponent<PlayerAttack>();
+        dState = GetComponent<DreamStateManager>();
     }
 
 
@@ -30,7 +32,16 @@ public class handleAnimation : MonoBehaviour
             flipSprite();
         }
         attacking();
-        idleWalk();   
+
+        if (dState.inDreamState)
+            dreamState();
+        else
+        {
+            anim.SetBool("dreamState", false);
+            idleWalk();
+        }
+            
+
     }
 
     void flipSprite()
@@ -43,6 +54,12 @@ public class handleAnimation : MonoBehaviour
         {
             sRender.flipX = true;
         }
+    }
+
+    void dreamState()
+    {
+        anim.SetBool("dreamState", true);
+        anim.SetBool("isWalking", false);
     }
 
     void idleWalk()
