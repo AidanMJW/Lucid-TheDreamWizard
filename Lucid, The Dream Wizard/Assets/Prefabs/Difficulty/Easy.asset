@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficultyName: Easy
   attackMultiplier: 1
-  speedMultiplier: 1.75
+  speedMultiplier: 1
   dropRate: {x: 1, y: 5}
   lives: 5
