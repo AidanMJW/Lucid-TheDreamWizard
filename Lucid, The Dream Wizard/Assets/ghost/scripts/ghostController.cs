@@ -127,6 +127,7 @@ public class ghostController : MonoBehaviour
                     //batAudio.clip = batFlyingClip;
                     //batAudio.Play();
                     m_GhostState = GhostState.Chase;
+                    GetComponent<Enemy>().active = true;
 
                 }
 
@@ -135,6 +136,7 @@ public class ghostController : MonoBehaviour
                 animator.Play("ghost-despawn", 0);//we can set an animation
                 if (timer > animationTimeDelay) { 
                    m_GhostState = GhostState.Inactive;
+                    GetComponent<Enemy>().active = false;
                     timer = 0f;
                 }
 

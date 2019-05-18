@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 7284010404487705169}
   - component: {fileID: 2093736879193586764}
   - component: {fileID: 7293491256865173850}
+  - component: {fileID: 1338826252262321083}
   m_Layer: 0
   m_Name: ghost
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,6 +119,7 @@ MonoBehaviour:
   m_GhostState: 0
   attackRange: 0.5
   attackPower: 2
+  inactiveTime: 10
   ghostDamageClip: {fileID: 0}
   ghostSpawningClip: {fileID: 0}
   speed: 1
@@ -185,3 +187,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.24, y: 0.42}
   m_EdgeRadius: 0
+--- !u!114 &1338826252262321083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8602478104870078961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830c0709d9680f941809df5ed75edda0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 150
+  lootDropRange: {x: 1, y: 1}
+  Drops:
+  - {fileID: 11400000, guid: 3dd3aee2b150ee442a6ea5ba8bd4b02c, type: 2}
+  - {fileID: 11400000, guid: ec579b97c12f06542876387a7dd1602d, type: 2}
+  deathEffect: {fileID: 7506422319290420290, guid: aa7af5c30eee51044b4d607db6c8760c,
+    type: 3}
