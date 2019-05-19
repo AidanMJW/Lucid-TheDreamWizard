@@ -5,7 +5,7 @@ using UnityEngine;
 public class GhostSpawner : MonoBehaviour
 {
     public int percentageChanceOfSpawning = 25;
-    public GameObject m_Ghost;
+    public GameObject m_Ghost=null;
     private GameObject m_GhostClone;
 
     // Start is called before the first frame update

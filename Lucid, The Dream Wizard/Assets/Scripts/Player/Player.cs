@@ -72,5 +72,26 @@ public class Player : MonoBehaviour
     {
         return dust;
     }
+    public void OnCollisionEnter2D(Collision2D other)
+    {        
+        if(other.gameObject.tag == "projectile")
+        {
+            takeDamage(1 * DifficultyManager.getAttackMultiplier());
+            
+            //GameObject d = Instantiate(deathEffect);
+            //d.transform.position = transform.position;
+            Destroy(other.gameObject);
+
+        }
+    }
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "projectile")
+        {
+            takeDamage(2 * DifficultyManager.getAttackMultiplier());
+            //Destroy(other.gameObject);
+
+        }
+    }
 
 }

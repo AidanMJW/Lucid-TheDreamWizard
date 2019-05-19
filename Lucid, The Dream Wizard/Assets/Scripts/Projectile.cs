@@ -44,11 +44,13 @@ public class Projectile : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<Enemy>().takeDamage(damage);
+            if(collision.gameObject.GetComponent<Enemy>().takeDamage(damage))
+            {
             DestroyThis();
         }
+           
+        }
     }
-
     public void DestroyThis( bool impacted = true)
     {
         if(impacted)

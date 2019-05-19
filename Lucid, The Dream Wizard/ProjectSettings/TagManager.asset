@@ -8,6 +8,9 @@ TagManager:
   - Enemy
   - Dust
   - CamRig
+  - Projectile
+  - projectile
+  - PlayerProjectile
   layers:
   - Default
   - TransparentFX

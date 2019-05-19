@@ -17,6 +17,7 @@ public class IdleTrigger : MonoBehaviour
     {
         if (other.name == "Player")
         {
+           // Debug.Log("player entered idle trigger - idle mode ");
             //set state to idle
             gameObject.GetComponentInParent<DemonController>().m_DemonState = DemonController.DemonState.Idle;            
         }
@@ -26,6 +27,7 @@ public class IdleTrigger : MonoBehaviour
     {
         if (other.name == "Player")
         {
+            //Debug.Log("player exited idle trigger - inactive mode mode ");
             gameObject.GetComponentInParent<DemonController>().m_DemonState = DemonController.DemonState.Inactive;
         }
     }

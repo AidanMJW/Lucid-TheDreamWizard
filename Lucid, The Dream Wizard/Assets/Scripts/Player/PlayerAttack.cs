@@ -86,13 +86,13 @@ public class PlayerAttack : MonoBehaviour
 
         
         p.GetComponent<Projectile>().direction = direction;
+        p.GetComponent<Projectile>().tag = "PlayerProjectile";
 
-
-        if(dreamState.inDreamState)
+        if (dreamState.inDreamState)
             p.GetComponent<Projectile>().damage = attackPower * 2;
         else
             p.GetComponent<Projectile>().damage = attackPower;
-
+        
 
     }
 

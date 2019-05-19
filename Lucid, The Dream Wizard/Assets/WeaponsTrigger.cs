@@ -10,37 +10,35 @@ public class WeaponsTrigger : MonoBehaviour
         
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+   /* private void OnTriggerStay2D(Collider2D other)
     {
         if (other.name == "Player")
         {
             //set state to idle
             gameObject.GetComponentInParent<DemonController>().m_DemonState = DemonController.DemonState.Attack;
         }
-        else if (other.name == "FireBall(Clone)")
+        else if (other.tag == "PlayerProjectile")
         {
-            Debug.Log("fireballed" + other.name);
+            //Debug.Log("fireball stayed in weapons trigger " + other.name);
         }
-    }
+    }*/
 
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.name == "Player")
         {
-            //set state to idle
+           // Debug.Log("player entered weapons trigger - attack mode ");
             gameObject.GetComponentInParent<DemonController>().m_DemonState = DemonController.DemonState.Attack;
         }
-        else if (other.name == "FireBall(Clone)")
-        {
-            Debug.Log("fireballed"+ other.name);
-        }
+       
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.name == "Player")
         {
+          //  Debug.Log("player entered weapons trigger - idle mode ");
             gameObject.GetComponentInParent<DemonController>().m_DemonState = DemonController.DemonState.Idle;
         }
     }
