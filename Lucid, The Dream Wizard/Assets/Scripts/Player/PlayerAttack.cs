@@ -7,22 +7,26 @@ public class PlayerAttack : MonoBehaviour
     public float attackPower;
     public float attackRange;
     public GameObject projectile;
+    public GameObject dreamStateProjectile;
     public Vector3 attackOffset;
     public float attackTime;
     public float fireTime;
     float baseAttackTime;
 
     public bool isFireing = false;
+
+    GameObject activeProjectile;
     bool hasFired = false;
+    bool fire = false;
     Vector3 direction;
     SpriteRenderer sRenderer;
-    PlayerController pController;
+    DreamStateManager dreamState;
 
     private void Start()
     {
         baseAttackTime = attackTime;
         sRenderer = GetComponent<SpriteRenderer>();
-        pController = GetComponent<PlayerController>();
+        dreamState = GetComponent<DreamStateManager>();
     }
 
     private void Update()
@@ -37,28 +41,35 @@ public class PlayerAttack : MonoBehaviour
          
         if(isFireing == true)
         {
-            attackTime -= Time.deltaTime;
-
-            if(attackTime <= fireTime && attackTime >0 && hasFired == false)
+            if(fire && hasFired == false)
             {
                 fireProjectile();
                 hasFired = true;
             }
-            if(attackTime <= 0)
-            {
-                isFireing = false;
-                hasFired = false;
-                attackTime = baseAttackTime;
-            }
         }
+    }
+
+    public void resetFire()
+    {
+        isFireing = false;
+        hasFired = false;
+        fire = false;
+    }
+
+
+    public void setFire()
+    {
+        fire = true;
     }
 
     void fireProjectile()
     {
+        if (dreamState.inDreamState)
+            activeProjectile = dreamStateProjectile;
+        else
+            activeProjectile = projectile;
 
-        GameObject p = Instantiate(projectile);
-
-
+        GameObject p = Instantiate(activeProjectile);
 
         if (sRenderer.flipX == true)
         {
@@ -75,7 +86,14 @@ public class PlayerAttack : MonoBehaviour
 
         
         p.GetComponent<Projectile>().direction = direction;
-        p.GetComponent<Projectile>().damage = attackPower;
+
+
+        if(dreamState.inDreamState)
+            p.GetComponent<Projectile>().damage = attackPower * 2;
+        else
+            p.GetComponent<Projectile>().damage = attackPower;
+
+
     }
 
 
