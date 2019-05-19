@@ -213,7 +213,7 @@ public class EnemyAiMovement : MonoBehaviour
             Vector2 pos = transform.position;
             Collider2D col = Physics2D.OverlapCircle(pos + feetOffset, 0.1f);
             
-            if ( col != null && (col.tag == "Platform" || col.tag == "WeakPlatform"))
+            if ( col != null && col.tag == "Platform" )
             {
                 if(underPlatformCheck())
                 drop = true;

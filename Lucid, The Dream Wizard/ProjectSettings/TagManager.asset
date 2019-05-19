@@ -8,7 +8,6 @@ TagManager:
   - Enemy
   - Dust
   - CamRig
-  - WeakPlatform
   layers:
   - Default
   - TransparentFX

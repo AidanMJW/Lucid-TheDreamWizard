@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public Vector2Int lootDropRange = new Vector2Int();
     public List<Drop> Drops = new List<Drop>();
     public GameObject deathEffect;
+    public bool active = true;
 
     void Update()
     {
@@ -17,13 +18,18 @@ public class Enemy : MonoBehaviour
 
     }
 
-    public void takeDamage(float amount)
+    public bool takeDamage(float amount)
     {
-        float h = health;
-        h -= amount;
-        if (h < 0)
-            h = 0;
-        health = h;
+        if(active)
+        {
+            float h = health;
+            h -= amount;
+            if (h < 0)
+                h = 0;
+            health = h;
+        }
+        return active;
+       
     }
 
     void die()

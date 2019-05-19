@@ -9,14 +9,16 @@ public class HandleDeath : MonoBehaviour
     Player player;
     Rigidbody2D rigBody;
     GameObject[] respawnPoints;
+    private AudioSource playerAudio;
+    public AudioClip playerDeathClip;
 
     void Start()
     {
         player = GetComponent<Player>();
         rigBody = GetComponent<Rigidbody2D>();
         respawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
+        playerAudio = GetComponent<AudioSource>();
 
-        
     }
 
     private void Update()
@@ -26,6 +28,8 @@ public class HandleDeath : MonoBehaviour
 
         if (transform.position.y <= deathDepth)
         {
+            playerAudio.clip = playerDeathClip;
+            playerAudio.Play();
             player.takeLive();
             respawn();
         }
@@ -54,7 +58,8 @@ public class HandleDeath : MonoBehaviour
         }
 
         rigBody.velocity = Vector3.zero;
-        transform.position = respawnPos;    
+        transform.position = respawnPos;
+       
     }
 
 }
