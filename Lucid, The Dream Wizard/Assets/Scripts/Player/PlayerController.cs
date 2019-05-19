@@ -6,21 +6,23 @@ public class PlayerController : MonoBehaviour
 {
     public float walkSpeed;
     public float jumpPower;
+    public float flySpeed;
     public GameObject feetPosition;
+    public GameObject platformDown;
     public LayerMask canJumpLayers;
 
+    DreamStateManager dreamState;
     Rigidbody2D rigBody;
     PlayerAttack pAttack;
     bool isGrounded;
     bool doJump = false;
-    private AudioSource playerAudio;
-    public AudioClip playerJumpClip;
+
 
     void Start()
     {
         rigBody = GetComponent<Rigidbody2D>();
         pAttack = GetComponent<PlayerAttack>();
-        playerAudio = GetComponent<AudioSource>();
+        dreamState = GetComponent<DreamStateManager>();
     }
 
     private void Update()
@@ -30,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
         if(MenuManager.getPauseState() == false)
         {
-            if (Input.GetButtonDown("Jump") && isGrounded/* && pAttack.isFireing == false*/)
+            if (Input.GetButtonDown("Jump") && isGrounded && pAttack.isFireing == false)
             {
                 doJump = true;
             }
@@ -40,18 +42,33 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (MenuManager.getPauseState() == false)
+        if(!dreamState.inDreamState)
         {
-            walk();
+            rigBody.gravityScale = 2;
+            feetPosition.SetActive(false);
+            platformDown.SetActive(true);
+
+            if (MenuManager.getPauseState() == false)
+            {
+                walk();
+            }
+
+            if (doJump)
+                jump();
+        }
+        else
+        {
+            rigBody.gravityScale = 0;
+            feetPosition.SetActive(true);
+            platformDown.SetActive(false);
+            fly();
         }
 
-        if (doJump)
-            jump();
     }
 
     void walk()
     {
-        if(pAttack.isFireing == false)
+        if(pAttack.isFireing == false || !isGrounded)
         {
             Vector2 direction = new Vector2(Input.GetAxis("Horizontal") * walkSpeed, rigBody.velocity.y);
             rigBody.velocity = direction;
@@ -65,6 +82,13 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    void fly()
+    {
+        Vector2 direction = new Vector2(Input.GetAxis("Horizontal") * flySpeed, Input.GetAxis("Vertical") * flySpeed);
+        rigBody.velocity = direction;
+        
+    }
+
     void checkIfGrounded()
     {
         bool grounded = false;
@@ -72,9 +96,14 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < coliders.Length; i++)
         {
+            //activate weak platform
+            if (coliders[i].gameObject.tag == "WeakPlatform" && !dreamState.inDreamState)
+                coliders[i].gameObject.GetComponent<PlatformShake>().setBreak();
+
             if (((1 << coliders[i].gameObject.layer) & canJumpLayers) != 0)
             {
                 grounded = true;
+                
                 break;
             }
         }
@@ -109,8 +138,6 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 jump = new Vector2(rigBody.velocity.x, jumpPower);
         rigBody.velocity = jump;
-        playerAudio.clip = playerJumpClip;
-        playerAudio.Play();
         doJump = false;
     }
 

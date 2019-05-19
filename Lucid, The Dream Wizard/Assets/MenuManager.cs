@@ -22,9 +22,7 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
-        
         difficultyText.text = difficulties[0].difficultyName;
-        toggleMenu();
     }
 
     void Update()
@@ -40,7 +38,7 @@ public class MenuManager : MonoBehaviour
         if (menuOpen == false)
         {
             mainMenu.SetActive(true);
-            //ES.SetSelectedGameObject(mainMenuStartButton.gameObject);
+            ES.SetSelectedGameObject(mainMenuStartButton.gameObject);
             gamePaused = true;
             Time.timeScale = 0f;
             menuOpen = true;
@@ -64,13 +62,7 @@ public class MenuManager : MonoBehaviour
 
     public void exitGame()
     {
-        #if UNITY_EDITOR
-        // Application.Quit() does not work in the editor so
-        // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
-        UnityEditor.EditorApplication.isPlaying = false;
-        #else
-         Application.Quit();
-        #endif
+        Application.Quit();
     }
 
     public static bool getPauseState()
@@ -82,7 +74,7 @@ public class MenuManager : MonoBehaviour
     {
         SettingsMenu.SetActive(false);
         mainMenu.SetActive(true);
-       // ES.SetSelectedGameObject(mainMenuStartButton.gameObject);
+        ES.SetSelectedGameObject(mainMenuStartButton.gameObject);
     }
 
     public void switchToSettingsMenu()
@@ -98,7 +90,7 @@ public class MenuManager : MonoBehaviour
 
         mainMenu.SetActive(false);
         SettingsMenu.SetActive(true);
-       // ES.SetSelectedGameObject(settingsStartButton.gameObject);
+        ES.SetSelectedGameObject(settingsStartButton.gameObject);
     }
 
     public void toggleDifficultyRight()
