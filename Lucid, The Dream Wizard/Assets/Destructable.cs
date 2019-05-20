@@ -10,10 +10,9 @@ public class Destructable : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Projectile" && destroyed == false)
+        if(collision.gameObject.tag == "PlayerProjectile" && destroyed == false)
         {
             destroyed = true;
-            Debug.Log("Destoryed");
             collision.gameObject.GetComponent<Projectile>().DestroyThis(true);
             dropLoot();
             DestoyThis();  
