@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2093736879193586764}
   - component: {fileID: 7293491256865173850}
   - component: {fileID: 1338826252262321083}
+  - component: {fileID: 2474464750395852880}
   m_Layer: 0
   m_Name: ghost
   m_TagString: Enemy
@@ -206,3 +207,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ec579b97c12f06542876387a7dd1602d, type: 2}
   deathEffect: {fileID: 7506422319290420290, guid: aa7af5c30eee51044b4d607db6c8760c,
     type: 3}
+  active: 1
+--- !u!114 &2474464750395852880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8602478104870078961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ece468de225efe4ba9b62f2529bb103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeColour: 0

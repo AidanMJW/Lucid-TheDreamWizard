@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3233915983383135534}
   - component: {fileID: 7923217590308870425}
   - component: {fileID: 8953279499330977839}
+  - component: {fileID: 8771128662657619190}
   m_Layer: 0
   m_Name: EnemyBat
   m_TagString: Enemy
@@ -299,3 +300,17 @@ MonoBehaviour:
   Drops: []
   deathEffect: {fileID: 7506422319290420290, guid: aa7af5c30eee51044b4d607db6c8760c,
     type: 3}
+  active: 1
+--- !u!114 &8771128662657619190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6541158125601461716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ece468de225efe4ba9b62f2529bb103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeColour: 0

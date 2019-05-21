@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 2583186359627202825}
   - component: {fileID: 2583186359627202824}
   - component: {fileID: 2583186359627202834}
+  - component: {fileID: 6642668172922771543}
   m_Layer: 0
   m_Name: demon
   m_TagString: Enemy
@@ -315,6 +316,19 @@ MonoBehaviour:
   deathEffect: {fileID: 7506422319290420290, guid: aa7af5c30eee51044b4d607db6c8760c,
     type: 3}
   active: 1
+--- !u!114 &6642668172922771543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2583186359627202827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ece468de225efe4ba9b62f2529bb103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeColour: 0
 --- !u!1 &2583186360070114564
 GameObject:
   m_ObjectHideFlags: 0

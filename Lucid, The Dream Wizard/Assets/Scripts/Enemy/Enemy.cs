@@ -9,6 +9,15 @@ public class Enemy : MonoBehaviour
     public List<Drop> Drops = new List<Drop>();
     public GameObject deathEffect;
     public bool active = true;
+    SpriteRenderer sRender;
+    DamageFlash damageFlash;
+
+
+    private void Start()
+    {
+        sRender = GetComponent<SpriteRenderer>();
+        damageFlash = GetComponent<DamageFlash>();
+    }
 
     void Update()
     {
@@ -17,6 +26,10 @@ public class Enemy : MonoBehaviour
 
 
     }
+
+
+
+
 
     public bool takeDamage(float amount)
     {
@@ -28,6 +41,7 @@ public class Enemy : MonoBehaviour
                 h = 0;
             health = h;
         }
+        damageFlash.changeColour = true;
         return active;
        
     }
