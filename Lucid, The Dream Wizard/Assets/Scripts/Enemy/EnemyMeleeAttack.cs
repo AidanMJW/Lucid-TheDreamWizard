@@ -16,6 +16,9 @@ public class EnemyMeleeAttack : MonoBehaviour
     bool attacked = false;
     bool attackEvent = false;
     Vector2 direction;
+    private AudioSource enemyAudio;
+    public AudioClip enemyDamageClip;
+    public AudioClip enemySpawnClip;
      
 
     void Start()
@@ -23,6 +26,9 @@ public class EnemyMeleeAttack : MonoBehaviour
         timer = attackCooldown;
         player = GameObject.FindGameObjectWithTag("Player");
         sRenderer = GetComponent<SpriteRenderer>();
+        enemyAudio = GetComponent<AudioSource>();
+        enemyAudio.clip = enemySpawnClip;
+        enemyAudio.Play();
     }
 
     void Update()
@@ -68,6 +74,8 @@ public class EnemyMeleeAttack : MonoBehaviour
             {
                 player.GetComponent<Player>().takeDamage(attackPower * DifficultyManager.getAttackMultiplier());
                 attacked = true;
+                enemyAudio.clip = enemyDamageClip;
+                enemyAudio.Play();
             }
         }
     }

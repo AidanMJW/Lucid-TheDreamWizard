@@ -9,12 +9,17 @@ public class HandleDeath : MonoBehaviour
     Player player;
     Rigidbody2D rigBody;
     GameObject[] respawnPoints;
+    private bool audioPlayed = false;
+    private AudioSource playerAudio;
+    public AudioClip playerFallClip;
+    public AudioClip playerDeathClip;
 
     void Start()
     {
         player = GetComponent<Player>();
         rigBody = GetComponent<Rigidbody2D>();
         respawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
+        playerAudio = GetComponent<AudioSource>();
 
         
     }
@@ -22,17 +27,42 @@ public class HandleDeath : MonoBehaviour
     private void Update()
     {
         if (player.getLives() <= 0)
-            death();
-
-        if (transform.position.y <= deathDepth)
         {
-            player.takeLive();
-            respawn();
+           
+            if (!playerAudio.isPlaying && !audioPlayed)
+            {                
+                playerAudio.clip = playerDeathClip;
+                playerAudio.Play();
+                audioPlayed = true;
+                //player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 100);
+                player.GetComponent<SpriteRenderer>().enabled = false;
+                player.GetComponent<CapsuleCollider2D>().enabled = false;
+            }
+            
+            if (!playerAudio.isPlaying && audioPlayed)
+            {
+                
+                death();
+            }
+            
         }
+        else
+        {
+            if (transform.position.y <= deathDepth)
+            {
+                playerAudio.clip = playerFallClip;
+                playerAudio.Play();
+                player.takeLive();
+                respawn();
+            }
+        }
+           
+
+      
     }
 
     void death()
-    {
+    {        
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

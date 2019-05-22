@@ -22,7 +22,7 @@ public class DemonController : MonoBehaviour
     public float attackPower = 2f;
     private float animationTimeDelay = 1.1f;
     private float timer = 0.0f;
-    private float nextDirectionChange = 0.0f;
+   
     private bool evasive = false;//flag that allows us to ignore current state and just evade projectile
     private AudioSource batAudio;
     public AudioClip demonDamageClip;
@@ -94,12 +94,12 @@ public class DemonController : MonoBehaviour
                     break;
                 case DemonState.Attack:
 
-                    speed = 2f;
+                    speed = 1.8f;
                     targetPosition.y = player.transform.position.y + 0.25f;
                     targetPosition.x = transform.position.x;
 
                     animator.Play("demon-attack-no-breath-animation", 0);
-                    animator.speed = 0.9f;
+                    animator.speed = 0.8f;
                     timer += Time.deltaTime;
                     if (timer > animationTimeDelay)//gives enough for animation to complete
                     {
@@ -117,7 +117,7 @@ public class DemonController : MonoBehaviour
                 case DemonState.Inactive:
                     animator.Play("demon-idle-animation", 0);
                     animator.speed = 0;
-                    speed = 0.25f;
+                    speed = 0.5f;
                     // targetPosition = transform.position;//we fall out of sky through platforms
                     targetPosition = dragonsLair.transform.position;
                 break;
@@ -197,13 +197,13 @@ public class DemonController : MonoBehaviour
             {
                // Debug.Log("avoid - down");
                 targetPosition.y = transform.position.y - 0.5f;
-                speed = 3.25f;
+                speed = 3.0f;
             }
             else //move up
             {
                 //Debug.Log("avoid - up");
                 targetPosition.y = transform.position.y + 1f;
-                speed = 3.25f;
+                speed = 3.0f;
             }
         }
         
