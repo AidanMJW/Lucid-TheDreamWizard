@@ -88,14 +88,13 @@ public class DemonController : MonoBehaviour
                 case DemonState.Idle:
                     animator.Play("demon-idle-animation", 0);//we can set an animation
                     animator.speed = 0.9f;
-
-                    speed = 1;
+                    speed = 1.2f;                  
                     targetPosition = dragonsLair.transform.position;
                     break;
                 case DemonState.Attack:
 
                     speed = 1.8f;
-                    targetPosition.y = player.transform.position.y + 0.25f;
+                    targetPosition.y = player.transform.position.y + 0.3f;
                     targetPosition.x = transform.position.x;
 
                     animator.Play("demon-attack-no-breath-animation", 0);
@@ -116,11 +115,10 @@ public class DemonController : MonoBehaviour
                 break;
                 case DemonState.Inactive:
                     animator.Play("demon-idle-animation", 0);
-                    animator.speed = 0;
-                    speed = 0.5f;
-                    // targetPosition = transform.position;//we fall out of sky through platforms
+                    animator.speed = 0f;
+                    speed = 0.8f;                   
                     targetPosition = dragonsLair.transform.position;
-                break;
+                 break;
 
             }//end switch
 
