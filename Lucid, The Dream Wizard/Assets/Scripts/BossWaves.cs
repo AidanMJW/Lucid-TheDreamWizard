@@ -9,6 +9,7 @@ public class BossWaves : MonoBehaviour
     public Vector2Int amountOfEnemiesRange = new Vector2Int();
     public GameObject shield;
     public bool playerAtBoss = false;
+    public GameObject boss;
     bool waveActive;
 
     List<GameObject> activeEnemies = new List<GameObject>();
@@ -20,14 +21,17 @@ public class BossWaves : MonoBehaviour
     void Start()
     {
         timer = activateTime;
+        
+
     }
 
 
     void Update()
-    {
+    {      
+
         checkActives();
 
-        if (playerAtBoss && !waveActive)
+        if (boss.GetComponent<DemonController>().m_DemonState != DemonController.DemonState.Inactive && !waveActive)
         {
             timer -= Time.deltaTime;
 

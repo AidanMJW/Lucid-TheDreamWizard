@@ -44,6 +44,7 @@ public class MenuManager : MonoBehaviour
         }
 
         difficultyText.text = difficulties[0].difficultyName;
+        //toggleMenu();
     }
 
     void Update()
@@ -86,14 +87,18 @@ public class MenuManager : MonoBehaviour
 
     public void exitGame()
     {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
         Application.Quit();
+        #endif
     }
 
     public static bool getPauseState()
     {
         return gamePaused;
     }
-
+    
     public void switchToMainMenu()
     {
         SettingsMenu.SetActive(false);
@@ -114,7 +119,7 @@ public class MenuManager : MonoBehaviour
 
         mainMenu.SetActive(false);
         SettingsMenu.SetActive(true);
-        ES.SetSelectedGameObject(settingsStartButton.gameObject);
+       // ES.SetSelectedGameObject(settingsStartButton.gameObject);
     }
 
     public void toggleDifficultyRight()
