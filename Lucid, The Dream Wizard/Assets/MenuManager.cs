@@ -63,7 +63,8 @@ public class MenuManager : MonoBehaviour
         if (menuOpen == false)
         {
             mainMenu.SetActive(true);
-            ES.SetSelectedGameObject(mainMenuStartButton.gameObject);
+            if (Input.GetJoystickNames().Length > 0)
+                ES.SetSelectedGameObject(mainMenuStartButton.gameObject);
             gamePaused = true;
             Time.timeScale = 0f;
             menuOpen = true;
@@ -103,7 +104,9 @@ public class MenuManager : MonoBehaviour
     {
         SettingsMenu.SetActive(false);
         mainMenu.SetActive(true);
-        ES.SetSelectedGameObject(mainMenuStartButton.gameObject);
+
+        if(Input.GetJoystickNames().Length > 0)
+            ES.SetSelectedGameObject(mainMenuStartButton.gameObject);
     }
 
     public void switchToSettingsMenu()
@@ -119,7 +122,13 @@ public class MenuManager : MonoBehaviour
 
         mainMenu.SetActive(false);
         SettingsMenu.SetActive(true);
-        ES.SetSelectedGameObject(settingsStartButton.gameObject);
+
+        if (Input.GetJoystickNames().Length > 0)
+        {
+            ES.SetSelectedGameObject(settingsStartButton.gameObject);
+            Debug.Log("trues");
+        }
+            
     }
 
     public void toggleDifficultyRight()
@@ -169,7 +178,8 @@ public class MenuManager : MonoBehaviour
             mainMenu.SetActive(false);
             SettingsMenu.SetActive(false);
             deathMenu.SetActive(true);
-            ES.SetSelectedGameObject(deathMenuStartButton.gameObject);
+            if (Input.GetJoystickNames().Length > 0)
+                ES.SetSelectedGameObject(deathMenuStartButton.gameObject);
             menuToggled = true;
         }
     }
@@ -183,7 +193,8 @@ public class MenuManager : MonoBehaviour
             SettingsMenu.SetActive(false);
             deathMenu.SetActive(false);
             winMenu.SetActive(true);
-            ES.SetSelectedGameObject(winMenuStartButton.gameObject);
+            if (Input.GetJoystickNames().Length > 0)
+                ES.SetSelectedGameObject(winMenuStartButton.gameObject);
             menuToggled = true;
         }
     }

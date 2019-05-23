@@ -50,7 +50,8 @@ public class MainMenuManager : MonoBehaviour
         settingsMenu.SetActive(false);
         controlsSettings.SetActive(false);
         mainMenu.SetActive(true);
-        ES.SetSelectedGameObject(mainMenuStartButton);
+        if (Input.GetJoystickNames().Length > 0)
+            ES.SetSelectedGameObject(mainMenuStartButton);
         
     }
     public void switchToSettings()
@@ -58,14 +59,16 @@ public class MainMenuManager : MonoBehaviour
         mainMenu.SetActive(false);
         controlsSettings.SetActive(false);
         settingsMenu.SetActive(true);
-        ES.SetSelectedGameObject(settingsStartButton);
+        if (Input.GetJoystickNames().Length > 0)
+            ES.SetSelectedGameObject(settingsStartButton);
     }
     public void switchToControls()
     {
         mainMenu.SetActive(false);
         settingsMenu.SetActive(false);
-        controlsSettings.SetActive(true);     
-        ES.SetSelectedGameObject(controlsStartButton);
+        controlsSettings.SetActive(true);
+        if (Input.GetJoystickNames().Length > 0)
+            ES.SetSelectedGameObject(controlsStartButton);
     }
 
     public void goToScene(int sceneIndex)
