@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GhostSpawner : MonoBehaviour
 {
-    public float percentageChanceOfSpawning = 25;
+    public float percentageProbability = 25;
+    private float percentageHolder = 25;
     public GameObject m_Ghost=null;
     private GameObject m_GhostClone;
 
@@ -19,9 +20,9 @@ public class GhostSpawner : MonoBehaviour
     {
         if (other.name == "Player")
         {
-            percentageChanceOfSpawning = percentageChanceOfSpawning * DifficultyManager.getAttackMultiplier();
+            percentageHolder = percentageProbability * DifficultyManager.getAttackMultiplier();
             int chance = Random.Range(0, 100);
-            if(chance < percentageChanceOfSpawning)
+            if(chance < percentageHolder)
             {
                 m_GhostClone = Instantiate(m_Ghost, transform.position, Quaternion.identity);
             }

@@ -8,6 +8,7 @@ public class BatcaveTrigger : MonoBehaviour
     public GameObject m_Bat;
     private GameObject m_BatClone;
     public float percentageProbability = 25;
+    private float percentageHolder = 25;
 
     // Start is called before the first frame update
     void Start()
@@ -25,10 +26,10 @@ public class BatcaveTrigger : MonoBehaviour
     {
         if (other.name == "Player")
         {
-            percentageProbability = percentageProbability * DifficultyManager.getAttackMultiplier();
+            percentageHolder = percentageProbability * DifficultyManager.getAttackMultiplier();
             
             int chance = Random.Range(0, 100);
-            if (chance < percentageProbability)
+            if (chance < percentageHolder)
             {
                 m_BatClone = Instantiate(m_Bat, transform.position, Quaternion.identity);
             }
