@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class GhostSpawner : MonoBehaviour
 {
-    public int percentageChanceOfSpawning = 25;
+    public float percentageChanceOfSpawning = 25;
     public GameObject m_Ghost=null;
     private GameObject m_GhostClone;
 
     // Start is called before the first frame update
     void Start()
     {
-
+       
     }
 
    
@@ -19,6 +19,7 @@ public class GhostSpawner : MonoBehaviour
     {
         if (other.name == "Player")
         {
+            percentageChanceOfSpawning = percentageChanceOfSpawning * DifficultyManager.getAttackMultiplier();
             int chance = Random.Range(0, 100);
             if(chance < percentageChanceOfSpawning)
             {
