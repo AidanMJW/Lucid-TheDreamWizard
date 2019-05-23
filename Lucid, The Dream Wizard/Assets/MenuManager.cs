@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -10,8 +11,17 @@ public class MenuManager : MonoBehaviour
     static bool gamePaused = false;
     public GameObject mainMenu;
     public Button mainMenuStartButton;
+
+    [Space(10)]
     public GameObject SettingsMenu;
     public Button settingsStartButton;
+    [Space(10)]
+    public GameObject deathMenu;
+    public Button deathMenuStartButton;
+    [Space(10)]
+    public GameObject winMenu;
+    public Button winMenuStartButton;
+    [Space(10)]
     public DifficultyManager difficultyManager;
     public Text difficultyText;
     public EventSystem ES;
@@ -19,9 +29,20 @@ public class MenuManager : MonoBehaviour
     public List<Difficulty> difficulties = new List<Difficulty>();
     bool difficultyChanged = false;
     public List<Difficulty> _dif = new List<Difficulty>();
+    public GameObject boss;
+    bool menuToggled = false;
 
     private void Start()
     {
+        Time.timeScale = 1;
+        
+
+        difficulties.Clear();
+        for(int i = 0; i <  DifficultyManager.difficulties.Count; i++)
+        {
+            difficulties.Add(DifficultyManager.difficulties[i]);
+        }
+
         difficultyText.text = difficulties[0].difficultyName;
     }
 
@@ -31,6 +52,9 @@ public class MenuManager : MonoBehaviour
         {
             toggleMenu();
         }
+
+        if (boss == null)
+            toggleWinPanel();
     }
 
     void toggleMenu()
@@ -127,8 +151,45 @@ public class MenuManager : MonoBehaviour
                 difficulties.Add(_dif[i]);
             }
 
-            difficultyManager.difficulty = difficulties[0];
+            DifficultyManager.difficulty = difficulties[0];
             difficultyChanged = false;
         }
+    }
+
+    public void toggleDeathPanel()
+    {
+        if(menuToggled == false)
+        {
+            Time.timeScale = 0;
+            mainMenu.SetActive(false);
+            SettingsMenu.SetActive(false);
+            deathMenu.SetActive(true);
+            ES.SetSelectedGameObject(deathMenuStartButton.gameObject);
+            menuToggled = true;
+        }
+    }
+
+    public void toggleWinPanel()
+    {
+        if (menuToggled == false)
+        {
+            Time.timeScale = 0;
+            mainMenu.SetActive(false);
+            SettingsMenu.SetActive(false);
+            deathMenu.SetActive(false);
+            winMenu.SetActive(true);
+            ES.SetSelectedGameObject(winMenuStartButton.gameObject);
+            menuToggled = true;
+        }
+    }
+
+    public void goToScene(int sceneIndex)
+    {
+        SceneManager.LoadScene(sceneIndex);
+    }
+
+    public void restartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

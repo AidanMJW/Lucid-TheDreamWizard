@@ -9,9 +9,11 @@ public class HandleDeath : MonoBehaviour
     Player player;
     Rigidbody2D rigBody;
     GameObject[] respawnPoints;
+    public MenuManager mManager;
 
     void Start()
     {
+   
         player = GetComponent<Player>();
         rigBody = GetComponent<Rigidbody2D>();
         respawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
@@ -33,7 +35,7 @@ public class HandleDeath : MonoBehaviour
 
     void death()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        mManager.toggleDeathPanel();
     }
 
     public void respawn()

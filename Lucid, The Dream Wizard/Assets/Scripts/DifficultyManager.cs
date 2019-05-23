@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class DifficultyManager : MonoBehaviour
 {
-    public Difficulty difficulty;
+    public static Difficulty difficulty;
+
+    public static List<Difficulty> difficulties = new List<Difficulty>();
 
     static string difficultyName = "default";
     static float attackMultiplier = 1;
@@ -44,10 +46,14 @@ public class DifficultyManager : MonoBehaviour
 
     void setUpValues()
     {
-        difficultyName = difficulty.difficultyName;
-        attackMultiplier = difficulty.attackMultiplier;
-        speedMultiplier = difficulty.speedMultiplier;
-        dropRate = difficulty.dropRate;
-        lives = difficulty.lives;
+        if(difficulty != null)
+        {
+            difficultyName = difficulty.difficultyName;
+            attackMultiplier = difficulty.attackMultiplier;
+            speedMultiplier = difficulty.speedMultiplier;
+            dropRate = difficulty.dropRate;
+            lives = difficulty.lives;
+        }
+
     }
 }
