@@ -20,6 +20,8 @@ public class MenuManager : MonoBehaviour
     public Button deathMenuStartButton;
     [Space(10)]
     public GameObject winMenu;
+    public Text winTime;
+    float playTime;
     public Button winMenuStartButton;
     [Space(10)]
     public DifficultyManager difficultyManager;
@@ -49,6 +51,9 @@ public class MenuManager : MonoBehaviour
 
     void Update()
     {
+        playTime += Time.deltaTime;
+        winTime.text = ((playTime/60)).ToString("F2") + " minutes";
+
         if(Input.GetButtonDown("Start"))
         {
             toggleMenu();
