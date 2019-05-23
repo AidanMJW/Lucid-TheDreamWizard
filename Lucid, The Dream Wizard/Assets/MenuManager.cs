@@ -119,7 +119,7 @@ public class MenuManager : MonoBehaviour
 
         mainMenu.SetActive(false);
         SettingsMenu.SetActive(true);
-       // ES.SetSelectedGameObject(settingsStartButton.gameObject);
+        ES.SetSelectedGameObject(settingsStartButton.gameObject);
     }
 
     public void toggleDifficultyRight()
