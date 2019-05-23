@@ -15,14 +15,12 @@ public class BossWaves : MonoBehaviour
     List<GameObject> activeEnemies = new List<GameObject>();
     
     public float activateTime;
-    float timer;
+    float timer =0;
     int count = 0;
 
     void Start()
     {
-        timer = activateTime;
         
-
     }
 
 
@@ -31,9 +29,13 @@ public class BossWaves : MonoBehaviour
 
         checkActives();
 
-        if (boss.GetComponent<DemonController>().m_DemonState != DemonController.DemonState.Inactive && !waveActive)
+        if (boss.GetComponent<DemonController>().m_DemonState != DemonController.DemonState.Inactive)
+            playerAtBoss = true;
+
+        if (playerAtBoss && !waveActive)
         {
             timer -= Time.deltaTime;
+            Debug.Log("test");
 
             if(timer <= 0)
             {
