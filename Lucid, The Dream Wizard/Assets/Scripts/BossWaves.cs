@@ -29,7 +29,7 @@ public class BossWaves : MonoBehaviour
 
         checkActives();
 
-        if (boss.GetComponent<DemonController>().m_DemonState != DemonController.DemonState.Inactive)
+        if (boss != null && boss.GetComponent<DemonController>().m_DemonState != DemonController.DemonState.Inactive)
             playerAtBoss = true;
 
         if (playerAtBoss && !waveActive)

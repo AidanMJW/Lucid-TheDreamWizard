@@ -8,13 +8,13 @@ public class DreamStateManager : MonoBehaviour
     public float dreamStateTime = 30f;
     public bool inDreamState = false;
 
-    float timer;
+    public float timer;
     Player player;
 
     void Start()
     {
         player = GetComponent<Player>();
-        timer = dreamStateTime;
+
     }
 
 
@@ -35,7 +35,6 @@ public class DreamStateManager : MonoBehaviour
             if(timer <= 0)
             {
                 deactivateDreamState();
-                timer = dreamStateTime;
             }
         }
     }
@@ -45,8 +44,9 @@ public class DreamStateManager : MonoBehaviour
         inDreamState = true;
     }
 
-    void deactivateDreamState()
+    public void deactivateDreamState()
     {
         inDreamState = false;
+        timer = dreamStateTime;
     }
 }

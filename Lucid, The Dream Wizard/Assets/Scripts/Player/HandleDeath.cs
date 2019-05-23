@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class HandleDeath : MonoBehaviour
 {
     public float deathDepth = -50f;
+    DreamStateManager stateManager;
     Player player;
     Rigidbody2D rigBody;
     GameObject[] respawnPoints;
@@ -20,7 +21,7 @@ public class HandleDeath : MonoBehaviour
 
     void Start()
     {
-   
+        stateManager = GetComponent<DreamStateManager>();
         player = GetComponent<Player>();
         rigBody = GetComponent<Rigidbody2D>();
         respawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
@@ -72,6 +73,7 @@ public class HandleDeath : MonoBehaviour
     {
         float distance = 10000000f;
         Vector3 respawnPos = Vector2.zero;
+        stateManager.deactivateDreamState();
 
         for(int i = 0; i < respawnPoints.Length; i++)
         {
