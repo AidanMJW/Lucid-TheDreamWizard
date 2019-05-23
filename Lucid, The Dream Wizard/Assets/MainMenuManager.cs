@@ -73,6 +73,8 @@ public class MainMenuManager : MonoBehaviour
 
     public void goToScene(int sceneIndex)
     {
+        difficultyChanged = true;
+        confirmSettings();
         SceneManager.LoadScene(sceneIndex);
     }
 
