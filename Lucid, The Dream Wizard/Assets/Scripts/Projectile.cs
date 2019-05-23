@@ -42,13 +42,19 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+
+        if (collision.gameObject.tag == "Enemy" )
         {
+            
             if(collision.gameObject.GetComponent<Enemy>().takeDamage(damage))
             {
-            DestroyThis();
+             DestroyThis();
+            }     
         }
-           
+        else if(collision.gameObject.tag == "Shield")
+        {
+
+            DestroyThis();
         }
     }
     public void DestroyThis( bool impacted = true)

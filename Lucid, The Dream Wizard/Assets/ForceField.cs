@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class ForceField : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject boss;
     void Start()
     {
         
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void Update()
     {
-        if (other.tag == "PlayerProjectile")//other.name == "FireBall(Clone)"
-        {
-            //  Debug.Log("fireball entered evasive trigger ");
-            Destroy(other.gameObject);
-        }
+        transform.position = boss.transform.position;
     }
+
 }

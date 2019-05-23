@@ -11,6 +11,7 @@ TagManager:
   - Projectile
   - projectile
   - PlayerProjectile
+  - Shield
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - Feet
   - WorldItem
   - Boss
-  - 
+  - Shield
   - 
   - 
   - 
