@@ -12,6 +12,8 @@ public class DemonController : MonoBehaviour
         Attack,//attempt to match players y position spawning fire breath or fireball depending on x distance to player
         Inactive//no animation, sleeping
     };
+    private AudioSource demonAudio;
+    public AudioClip demonActiveClip;
     private Vector3 attackOffset;
     private Vector3 flippedAttackOffset;
     private Vector3 fireBreathattackOffset;
@@ -24,12 +26,9 @@ public class DemonController : MonoBehaviour
     private float timer = 0.0f;
    
     private bool evasive = false;//flag that allows us to ignore current state and just evade projectile
-    private AudioSource batAudio;
-    public AudioClip demonDamageClip;
-    public AudioClip demonFlyingClip;
     SpriteRenderer sRenderer;
-    public float speed = 1;
 
+    public float speed = 1;
     float speedHolder;
     public GameObject dragonsLair;
     public GameObject projectile;
@@ -61,14 +60,11 @@ public class DemonController : MonoBehaviour
         speedHolder = speed;
         direction = rigBody.velocity;
 
-        //could use these when he takes hits
-      //  rotationRight = new Vector3(25, transform.eulerAngles.y, transform.eulerAngles.z);
-      //  rotationLeft = new Vector3(-25, transform.eulerAngles.y, transform.eulerAngles.z);
-       // rotationNone = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
+       
         m_DemonState = DemonState.Inactive;
         targetPosition = dragonsLair.transform.position;
         
-        //batAudio = GetComponent<AudioSource>();
+        demonAudio = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -140,6 +136,67 @@ public class DemonController : MonoBehaviour
                 evasive = false;
             }
         }
+        move();
+    }//end fixed update
+
+    public void awaken()
+    {
+        m_DemonState = DemonState.Idle;
+        //play audio
+        demonAudio.clip = demonActiveClip;
+        demonAudio.Play();
+    }
+
+    public void avoid(GameObject go)
+    {
+       
+        /*
+         * get the transform of incoming go - Lucid fires horizontally so we are interested its y value
+         * If distance of fireball y transform to our lowest y co-ord of our collider 
+         * is less than distance to our highest y co-ord of our collider we want to move up else move down. 
+         */
+        targetPosition.x = transform.position.x;//just move up and down for now
+        float incomingfireball_y = go.transform.position.y;
+        float myLowest_y = transform.position.y - 0.5f;
+        float myHighest_y = transform.position.y + 0.5f;
+        if(incomingfireball_y < myHighest_y && incomingfireball_y > myLowest_y)//we gottsta move
+        {
+            evasive = true;
+            incomingProjectile = go;
+            animator.Play("demon-idle-animation", 0);
+            animator.speed = 1f;
+            int chance = Random.Range(0, 100);
+           
+                // Debug.Log("avoid");
+            if (myHighest_y - incomingfireball_y < incomingfireball_y - myLowest_y)//move down
+            {
+               // Debug.Log("avoid - down");
+                targetPosition.y = transform.position.y - 0.5f;
+                speed = 3.0f;
+            }
+            else //move up
+            {
+                //Debug.Log("avoid - up");
+                targetPosition.y = transform.position.y + 1f;
+                speed = 3.0f;
+            }
+        }
+        
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {       
+        if (other.gameObject.name == "landCollider(Clone)")
+        {
+            //move up so we aren't trapped against ground
+            targetPosition.y = transform.position.y + 1f;
+            speed = 3.0f;
+            move();
+        }
+    }
+
+    private void move()
+    {
         direction = rigBody.velocity;
         if (targetPosition.x > transform.position.x + 0.1)
         {
@@ -170,60 +227,7 @@ public class DemonController : MonoBehaviour
             direction.y = 0;
         }
         rigBody.velocity = direction;
-    }//end fixed update
-
-    public void avoid(GameObject go)
-    {
-       
-        /*
-         * get the transform of incoming go - Lucid fires horizontally so we are interested its y value
-         * If distance of fireball y transform to our lowest y co-ord of our collider 
-         * is less than distance to our highest y co-ord of our collider we want to move up else move down. 
-         */
-        targetPosition.x = transform.position.x;//just move up and down for now
-        float incomingfireball_y = go.transform.position.y;
-        float myLowest_y = transform.position.y - 0.5f;
-        float myHighest_y = transform.position.y + 0.5f;
-        if(incomingfireball_y < myHighest_y && incomingfireball_y > myLowest_y)//we gottsta move
-        {
-            evasive = true;
-            incomingProjectile = go;
-            animator.Play("demon-idle-animation", 0);
-            animator.speed = 1f;
-           // Debug.Log("avoid");
-            if (myHighest_y - incomingfireball_y < incomingfireball_y - myLowest_y)//move down
-            {
-               // Debug.Log("avoid - down");
-                targetPosition.y = transform.position.y - 0.5f;
-                speed = 3.0f;
-            }
-            else //move up
-            {
-                //Debug.Log("avoid - up");
-                targetPosition.y = transform.position.y + 1f;
-                speed = 3.0f;
-            }
-        }
-        
     }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.name == "Player")
-        {
-           // m_BatState = BatState.Attack;
-            //Debug.Log("attack state");
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.name == "Player")
-        {
-           // m_BatState = BatState.Chase;
-        }
-    }
-
     void breathFire()
     {
         GameObject p = Instantiate(breathfire);
