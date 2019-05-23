@@ -14,7 +14,7 @@ public class DreamStateManager : MonoBehaviour
     void Start()
     {
         player = GetComponent<Player>();
-
+        timer = dreamStateTime;
     }
 
 
