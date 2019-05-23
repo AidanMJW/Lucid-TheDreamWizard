@@ -17,12 +17,16 @@ public class PlayerController : MonoBehaviour
     bool isGrounded;
     bool doJump = false;
 
+    private AudioSource playerAudio;
+    public AudioClip playerJumpClip;
+
 
     void Start()
     {
         rigBody = GetComponent<Rigidbody2D>();
         pAttack = GetComponent<PlayerAttack>();
         dreamState = GetComponent<DreamStateManager>();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -139,6 +143,8 @@ public class PlayerController : MonoBehaviour
         Vector2 jump = new Vector2(rigBody.velocity.x, jumpPower);
         rigBody.velocity = jump;
         doJump = false;
+        playerAudio.clip = playerJumpClip;
+        playerAudio.Play();
     }
 
     public bool getGrounded()

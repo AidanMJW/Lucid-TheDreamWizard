@@ -161,6 +161,7 @@ MonoBehaviour:
   canJumpLayers:
     serializedVersion: 2
     m_Bits: 11264
+  playerJumpClip: {fileID: 8300000, guid: ce1a0ceaacee0094a9d61871a95ab7c5, type: 3}
 --- !u!114 &3281722538564578732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathDepth: -50
+  mManager: {fileID: 0}
   playerFallClip: {fileID: 8300000, guid: 517fd80476c31c34e9fceb6f52c3e4fe, type: 3}
   playerDeathClip: {fileID: 8300000, guid: 9e2f26de69bc2cb48a7e47a5cf505f63, type: 3}
 --- !u!114 &1644421738
@@ -329,6 +331,7 @@ MonoBehaviour:
   dustCost: 5
   dreamStateTime: 30
   inDreamState: 0
+  timer: 0
 --- !u!82 &3497461205549130815
 AudioSource:
   m_ObjectHideFlags: 0
