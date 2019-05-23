@@ -297,7 +297,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 1
   lootDropRange: {x: 0, y: 0}
-  Drops: []
+  Drops:
+  - {fileID: 11400000, guid: ec579b97c12f06542876387a7dd1602d, type: 2}
+  - {fileID: 11400000, guid: 3dd3aee2b150ee442a6ea5ba8bd4b02c, type: 2}
   deathEffect: {fileID: 7506422319290420290, guid: aa7af5c30eee51044b4d607db6c8760c,
     type: 3}
   active: 1
